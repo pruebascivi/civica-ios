@@ -1,0 +1,58 @@
+package civica.nacional.iOS.pageObjects;
+
+public class TransporteCivicaPageObjects {
+	
+	public static final String TXT_PERMISOS_CIVICA = "//XCUIElementTypeStaticText[@name='¿Permitir a Cívica utilizar tu ubicación?']";
+	public static final String PERMITIR_AL_USAR = "//XCUIElementTypeButton[@name='Permitir al usar la app']";
+	public static final String BTN_PERMITIR_SIEMPRE = "(//XCUIElementTypeOther[@name='Barra de desplazamiento horizontal, 1 página'])[2]";
+	public static final String MENU_HAMBURGUESA = "//XCUIElementTypeButton[@label='ic menu 2']";
+	public static final String USER_BTN_HM = "//XCUIElementTypeOther[@name='Usuario']";
+	public static final String BENEFICIOS_BTN = "//XCUIElementTypeStaticText[@name='Beneficios de viaje']";
+	public static final String BENEFICIOS_MODULE_TXT = "//XCUIElementTypeStaticText[@name='Consulta tus beneficios de viaje en Cívica.']";
+	public static final String TXT_WITHOUT_BENEFITS = "//XCUIElementTypeStaticText[contains(@name, '!Aún no tienes beneficios activos¡')]";
+	public static final String BTN_RETURN_SINCE_BENEFICIOS_VIAJE = "//XCUIElementTypeButton[@name='Back']";
+	public static final String SALDOS_HOME = "//XCUIElementTypeStaticText[contains(@name,'$')]";
+	public static final String MODULE_TRAYECTOS_SAVES = "//*[contains(@name, 'Trayectos guardados')]";
+	public static final String TRAYECTO_PRESENT = "(//XCUIElementTypeStaticText[contains(@name, 'min')])[3]";
+	public static final String EMPIEZA_A_VIAJAR = "//XCUIElementTypeStaticText[@name='¡Empieza a viajar!']";
+	public static final String ALL_JOURNEYS = "//XCUIElementTypeStaticText[@name='Ver todos']";
+	public static final String TXT_ALL_JOURNEYS_MODULE = "//XCUIElementTypeStaticText[@name='Trayectos guardados']";
+	public static final String TXT_TRIP_PROGRESS = "//*[contains(@text, 'Viaje en curso')]";
+	public static final String BTN_RETURN_SINCE_TRAYECTOS_GUARDADOS = "//XCUIElementTypeNavigationBar[@name='Trayectos guardados']/XCUIElementTypeButton";
+	public static final String MODULE_NEAR_PLACES = "//XCUIElementTypeStaticText[@name='Lugares cercanos']";
+	public static final String LC_COMERCIO = "//XCUIElementTypeStaticText[@name='Comercio']";
+	public static final String LC_FINANCIERO = "//XCUIElementTypeStaticText[@name='Financiero']";
+	public static final String TRAVEL_WITH_QR = "//XCUIElementTypeScrollView/XCUIElementTypeOther[3]/XCUIElementTypeOther[2]";
+	public static final String HOME_W_ARE_U_GOING = "//XCUIElementTypeScrollView/XCUIElementTypeOther[4]/XCUIElementTypeOther[1]";
+	public static final String FIELD_W_ARE_U_GOING = "(//XCUIElementTypeOther)[25]";
+	public static final String FIELD_A_DONDE_VAS = "//XCUIElementTypeTextField[@name='¿A dónde vas?']";
+	public static final String FIELD_INTO_W_ARE_U_GOING = "//XCUIElementTypeApplication[@name='Cívica']/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]";
+	public static final String JOURNAYS_SAVES_INTO_W_ARE_U_GOING = "//XCUIElementTypeStaticText[@name='Trayectos guardados']";
+	public static final String SEE_ALL_SINCE_W_ARE_U_GOING = "//XCUIElementTypeStaticText[@name='Ver todos']";
+	public static final String BTN_RETURN_SINCE_SEE_ALL_SINCE_W_ARE_U_GOING = "//XCUIElementTypeNavigationBar[@name='Trayectos guardados']/XCUIElementTypeButton";
+	public static final String MAP_FROMLOCATION = "//XCUIElementTypeImage[@name='ic_map_fromlocation']";
+	public static final String MAP_REAL_LOCATION = "(//XCUIElementTypeOther)[30]";
+	public static final String GPS_UBICATION = "//XCUIElementTypeButton[@name='ic ubicacion']";
+	public static final String BTN_SELECT_LOCATION = "//XCUIElementTypeButton[@name='Seleccionar ubicación']";
+	public static final String BTN_SHOW_JOURNEYS = "(//XCUIElementTypeOther)[42]";
+	public static final String BTN_HIDDE_JOURNEYS = "(//XCUIElementTypeOther)[40]";
+	public static final String START_JOURNERY = "//XCUIElementTypeStaticText[@name= 'Empezar trayecto']";
+	public static final String CURRENT_LOCATION = "//XCUIElementTypeButton[@name='Ubicación actual']";
+	public static final String BTN_SELECT_ON_THE_MAP = "//XCUIElementTypeStaticText[@name='Elegir en el mapa']";
+	public static final String FIELD_INPUT_DATE = "(//XCUIElementTypeButton)[6]";
+	public static final String FIELD_INPUT_DATE_HOUR = "//XCUIElementTypeApplication[@name='Cívica']/XCUIElementTypeWindow[1]/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther[2]";
+	public static final String DATE_BIRTH_INPUT_FIELD = "//XCUIElementTypeStaticText[contains(@name,'Fecha de salida DD/MM/AAAA')]";
+	public static final String DAY_FIELD_TO_SCROLL = "(//XCUIElementTypePickerWheel)[1]";
+	public static final String MONTH_FIELD_TO_SCROLL = "(//XCUIElementTypePickerWheel)[2]";
+	public static final String YEAR_FIELD_TO_SCROLL = "//XCUIElementTypePickerWheel[@value='2024']";
+	public static final String FIELD_DEPERTURE = "//XCUIElementTypeStaticText[@name='Hora de salida']";
+	public static final String FIELD_HOUR = "(//XCUIElementTypePickerWheel)[1]";
+	public static final String FIELD_MINUTE = "(//XCUIElementTypePickerWheel)[2]";
+	public static final String FIELD_JORNADA = "(//XCUIElementTypePickerWheel)[3]";
+	public static final String BTN_ACEPTAR_HORA = "//XCUIElementTypeButton[@name='Aceptar']";
+	public static final String BTN_BACK_FROM_MORE_SERVICES = "//XCUIElementTypeButton[@name='Más servicios']";
+	public static final String BTN_REGRESO_MAS_SERVICIOS = "//XCUIElementTypeButton[contains(@name, 'Explorar')]";
+	public static final String SUGGESTED_ROUTES = "//XCUIElementTypeStaticText[@name='Trayectos sugeridos']";
+	public static final String BTN_BACK_FROM_SUGGESTED_ROUTES = "//XCUIElementTypeButton[contains(@name, 'Explorar')]";
+	public static final String CAMPO_INGRESA_DIRECCION = "//XCUIElementTypeTextField[contains(@name, 'Ingresa dirección')]";
+}
