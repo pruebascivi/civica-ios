@@ -29,23 +29,22 @@ public class CustomAppiumDriver {
 				Credenciales.parametrosGenerales().getProperty("appium.newCommandTimeout"));
 		dc.setCapability("automationName", Credenciales.parametrosGenerales().getProperty("appium.automationName"));
 
-//		Devices
+		//Devices
 		dc.setCapability("deviceName", Credenciales.parametrosGenerales().getProperty("appium.device.deviceName"));
 		dc.setCapability("platformName", Credenciales.parametrosGenerales().getProperty("appium.device.platformName"));
 		dc.setCapability("platformVersion",
 				Credenciales.parametrosGenerales().getProperty("appium.device.platformVersion"));
 		dc.setCapability("udid", Credenciales.parametrosGenerales().getProperty("appium.device.udid"));
 		try {
-			base.driver = new AppiumDriver<MobileElement>(
+			BaseUtil.driver = new AppiumDriver<MobileElement>(
 					new URL(Credenciales.parametrosGenerales().getProperty("appium.server.url")), dc);
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public AppiumDriver<MobileElement> getCustomDriver() {
-		return base.driver;
+		return BaseUtil.driver;
 	}
 
 }

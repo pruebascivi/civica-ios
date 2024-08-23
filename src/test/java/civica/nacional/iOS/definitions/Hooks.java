@@ -34,6 +34,7 @@ public class Hooks {
 		System.gc();
 		Evidencias.numeroScreen = 1;
 		int valueWait = Integer.parseInt(Credenciales.parametrosGenerales().getProperty("wait"));
+		System.out.println(valueWait);
 		Hooks.scenario = scenario;
 		cd = new CustomAppiumDriver();
 		BaseUtil.driver = cd.getCustomDriver();
@@ -68,7 +69,7 @@ public class Hooks {
 			System.out.println("Nombre Caso: "+scenario.getName().toString());
 			System.out.println("Status: "+ scenario.getStatus().toString());
 			System.out.println("Nombre Archivo:"+System.getProperty("RutaEvidencias")+File.separator+"Evidencias_"+scenario.getName().split("_")[0]+"_"+scenario.getStatus().toString()+"_" + Utilidades.formatDateInforme("yyyy-MM-dd_HH-mm-ss", Evidencias.fechaPrueba) + ".docx");
-	//	ALMRest.changeStatusCase(scenario.getName().toString(), scenario.getStatus().toString(), System.getProperty("RutaEvidencias")+File.separator+"Evidencias_"+scenario.getName().split("_")[0]+"_"+scenario.getStatus().toString()+"_" + Utilidades.formatDateInforme("yyyy-MM-dd_HH-mm-ss", Evidencias.fechaPrueba) + ".docx");
+			//ALMRest.changeStatusCase(scenario.getName().toString(), scenario.getStatus().toString(), System.getProperty("RutaEvidencias")+File.separator+"Evidencias_"+scenario.getName().split("_")[0]+"_"+scenario.getStatus().toString()+"_" + Utilidades.formatDateInforme("yyyy-MM-dd_HH-mm-ss", Evidencias.fechaPrueba) + ".docx");
 			//base.driver.closeApp();
 			//base.driver.quit();
 			Evidencias.numeroScreen = 1;
@@ -103,5 +104,4 @@ public class Hooks {
 		scenario1 = scenario;
 		return scenario1;
 	}
-	
 }

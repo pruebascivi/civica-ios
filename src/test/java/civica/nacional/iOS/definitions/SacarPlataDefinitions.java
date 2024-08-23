@@ -4,7 +4,6 @@ import civica.nacional.iOS.steps.SacarPlataSteps;
 import civica.nacional.iOS.steps.WebRedebanSteps;
 import civica.nacional.iOS.utilidades.BaseUtil;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 public class SacarPlataDefinitions {
@@ -13,7 +12,6 @@ public class SacarPlataDefinitions {
 	SacarPlataSteps sacarPlataSteps;
 	@Steps
 	WebRedebanSteps stepsWebRedeban;
-
 
 	@Then("^ingreso al modulo 'Sacar Plata'$")
 	public void ingresoAlModuloSacarPlata() {

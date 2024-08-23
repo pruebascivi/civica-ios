@@ -30,7 +30,7 @@ Feature: Pago servicios publicos y privados
 
     Examples: 
       | tipoId | usuario  | contrasena | servicio             | referencia | valor  | subtipo | numCelularUsuario |
-      | "CC"   | "999837" | "2578"     | "DNR UNO A UNO JHON" | "1234"     | "1000" | "MET"   | "3142045585"      |
+      | "CC"   | "999837" | "1234"     | "DNR UNO A UNO JHON" | "1234"     | "1000" | "MET"   | "3142045585"      |
 
   #falta data.    
   @CP003701M
@@ -59,7 +59,7 @@ Feature: Pago servicios publicos y privados
 
     Examples: 
       | tipoId | usuario  | contrasena | servicio             | referencia | valor  | subtipo | numCelularUsuario |
-      | "CC"   | "999837" | "2578"     | "DNR UNO A UNO JHON" | "1234"     | "1000" | "MET"   | "3142045585"      |
+      | "CC"   | "999837" | "1234"     | "DNR UNO A UNO JHON" | "1234"     | "1000" | "MET"   | "3142045585"      |
 
   #falta data.    
   @CP003702M
@@ -151,6 +151,9 @@ Feature: Pago servicios publicos y privados
 
   @CP003705M
   Scenario Outline: CP003705M_SYS_Validar secciones en Hacer Pagos y solicitud de permisos para acceder a la cámara del dispositivo
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -160,5 +163,5 @@ Feature: Pago servicios publicos y privados
     And Valido solicitud permisos para escanear códigos    
     
     Examples: 
-      | tipoId | usuario     | contrasena | 
-      | "CC"   | "215333181" | "4568"     |
+      | tipoId | usuario     | contrasena | subtipo |
+      | "CC"   | "215333181" | "4568"     | "MET"   |

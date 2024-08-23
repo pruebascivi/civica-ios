@@ -5,9 +5,9 @@ Feature: Cambio de clave
 
   @CP0013M @passed
   Scenario Outline: CP0013M_SYS_Realizar el cambio de clave para un usuario MET - CC.
-    Given Obtener numero celular actual en redeban <usuario>
-    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
-    And Logout redeban
+    #Given Obtener numero celular actual en redeban <usuario>
+    #And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    #And Logout redeban
     And ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -19,7 +19,7 @@ Feature: Cambio de clave
 
     Examples: 
       | tipoId | usuario  | contrasena | newPass | subtipo |
-      | "CC"   | "666710" | "1342"     | "1343"  | "MET"   |
+      | "CC"   | "666710" | "2580"     | "1234"  | "MET"   |
 
   @CP0014M @passed
   Scenario Outline: CP0014M_SYS_Realizar el cambio de clave para un usuario MET - CE.

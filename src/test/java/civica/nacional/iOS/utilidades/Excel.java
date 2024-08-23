@@ -28,7 +28,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 
 public class Excel {
 	
-    
 	static XSSFWorkbook workbookEvidencias = new XSSFWorkbook();
 	static XSSFSheet Datos;
 	static XSSFSheet hojaEvidencia;
@@ -44,14 +43,10 @@ public class Excel {
 	static int contadorFila = 1;
 	int contadorCelda = 1;
 
-	
-
 	// Anadir elementos
 	static XSSFSheet hoja1 = null;
 	static XSSFWorkbook wb = null;
 	static BufferedImage in;
-	
-
 	
 	// Metodo para crear o leer un archivo
 	public static void crearLeerArchivo(String rutaEvidencia, String nombreArchivo) {
@@ -178,7 +173,6 @@ public class Excel {
 		for (int j = 1; j < datos.length; j++) {
 			XSSFCell cell = row.createCell(j);
 			cell.setCellValue(datos[j]);
-
 		}
 	}
 
@@ -191,13 +185,10 @@ public class Excel {
 				for (Row row : sheet) {
 					isRowEmpty(row);
 				}
-
 			}
-
 		} catch (Exception e) {
 
 		}
-
 	}
 
 	// Metodo para determinar que celdas estan vacias
@@ -210,32 +201,28 @@ public class Excel {
 				contadorFila++;
 				return false;
 			}
-
 		}
 		return true;
-
 	}
+	
 	public static void addImage() throws IOException {
 		int t=5;
 		String [] vector = Evidencias.getImagen();
 		int col = 4;
 		int row = 2;
 		int i = 0;
-		double f = 2;
 		int espacio =25;
-		int casoFila= 1;
 		double scaleX =0.0;
 		double scaleY=0.0;
 		System.setProperty("nombreScenario", String.valueOf(scenario));
-		
 
 		hojaEvidencia = wb.getSheetAt(1);
 		//Agregar el caso al excel
-//		XSSFRow Row1 = hojaEvidencia.createRow(2);
-//		XSSFRow Row2 = hojaEvidencia.createRow(espacio-1);
-//		XSSFRow Row3 = hojaEvidencia.createRow((espacio*2)-1);
-//		XSSFRow Row4 = hojaEvidencia.createRow((espacio*3)-1);
-//		XSSFRow Row5 = hojaEvidencia.createRow((espacio*4)-1);
+		//XSSFRow Row1 = hojaEvidencia.createRow(2);
+		//XSSFRow Row2 = hojaEvidencia.createRow(espacio-1);
+		//XSSFRow Row3 = hojaEvidencia.createRow((espacio*2)-1);
+		//XSSFRow Row4 = hojaEvidencia.createRow((espacio*3)-1);
+		//XSSFRow Row5 = hojaEvidencia.createRow((espacio*4)-1);
 		//Agregar mas imagenes
 		
 		System.out.println("el contador es"+contadorFila);
@@ -264,8 +251,7 @@ public class Excel {
 		}
 		do {
 			InputStream inputStream = new FileInputStream(System.getProperty("user.dir")+"//Evidencias//"
-		+scenario[0]+"//"+vector[i]+".PNG");	
-		//	System.out.println("Nombre imagen "+ base.NombreImage[i]);
+					+scenario[0]+"//"+vector[i]+".PNG");	
 			byte [] bytes = IOUtils.toByteArray(inputStream);
 			int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
 			inputStream.close();
@@ -285,7 +271,7 @@ public class Excel {
 			col = col + 3;  	
 			    }
 			i++;
-		}while(vector[i]!= null);
+		} while(vector[i]!= null);
 		contadorFila=1;
 	}
 }

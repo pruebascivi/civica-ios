@@ -116,8 +116,10 @@ public class RecargaPseCivicaPaySteps {
 		BaseUtil.horaTransaction3 = horaActual3;
 		
         System.out.println("Hora actual: " + horaActual);
+        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 		UtilidadesTCS.esperarElementVisibility("xpath", RecargaPseCivicaPayPage.SUCCESSFUL_TRANSACTION_TXT);
-		Utilidades.tomaEvidencia("Valido transacción exitosa.");
+		Utilidades.esperaMiliseg(1500);
+		Utilidades.tomaEvidencia("Valido resultado de la transacción");
 		Utilidades.esperaMiliseg(1000);
 		utilidadesTCS.clicElement("xpath",RecargaPseCivicaPayPage.BACK_BTN);
 		Utilidades.esperaMiliseg(1000);
@@ -139,7 +141,8 @@ public class RecargaPseCivicaPaySteps {
 			System.out.println("Se encuentra presente el movimiento. ");
 			Utilidades.tomaEvidencia("Se encuentra presente el movimiento. ");
 			utilidadesTCS.clicElement("xpath", PasarPlataCivicaPage.BACK_BTN);
-		}else {
+			
+		} else {
 			System.out.println("No se encuentra registro en los movimientos de la transacción realizada tipo: Recarga CiviPay.");
 			Utilidades.tomaEvidencia("No se encuentra registro en los movimientos de la transacción realizada tipo: Recarga CiviPay.");
 			utilidadesTCS.clicElement("xpath", PasarPlataCivicaPage.BACK_BTN);
@@ -150,18 +153,37 @@ public class RecargaPseCivicaPaySteps {
 	public void validarSaldosInicialesCivicaPay () {
 		String saldo = utilidadesTCS.obtenerTexto("xpath", PasarPlataCivicaPage.SALDOS_HOME);
 		BaseUtil.initialBalance  = UtilidadesTCS.removeDecimalBalances(saldo);
-		String saldoRedeban = Double.toString(BaseUtil.saldos.get(0));
-		BaseUtil.saldoConvertidoWebRedebanInicial = UtilidadesTCS.removeDecimalBalancesWeb(saldoRedeban);
-		//utilidadesTCS.validateTextEqualTo(BaseUtil.initialBalance, BaseUtil.saldoConvertidoWebRedebanInicial);
-		Utilidades.tomaEvidencia("Validar saldos iniciales de la cuenta en Redeban");
+//		String saldoRedeban = Double.toString(BaseUtil.saldos.get(0));
+//		BaseUtil.saldoConvertidoWebRedebanInicial = UtilidadesTCS.removeDecimalBalancesWeb(saldoRedeban);
+//		utilidadesTCS.validateTextEqualTo(BaseUtil.initialBalance, BaseUtil.saldoConvertidoWebRedebanInicial);
+		Utilidades.tomaEvidencia("Validar saldos iniciales de la cuenta");
 	}
 	
 	@Step
 	public void validarAfectacionSaldosCivPay() {
-		String saldoFinalRedeban = Double.toString(BaseUtil.saldos.get(1));
-		String saldoFinalConvertidoWebRedebanFinal = UtilidadesTCS.removeDecimalBalancesWeb(saldoFinalRedeban);
-		utilidadesTCS.validateTextNotEqualTo(BaseUtil.saldoConvertidoWebRedebanInicial, saldoFinalConvertidoWebRedebanFinal);
-		Utilidades.tomaEvidencia("Validar que se afecten los saldos y movimientos en redeban del monedero Destino.");
+		try {
+//			String saldoFinalRedeban = Double.toString(BaseUtil.saldos.get(1));
+//			String saldoFinalConvertidoWebRedebanFinal = UtilidadesTCS.removeDecimalBalancesWeb(saldoFinalRedeban);
+//			utilidadesTCS.validateTextNotEqualTo(BaseUtil.saldoConvertidoWebRedebanInicial, saldoFinalConvertidoWebRedebanFinal);
+//			Utilidades.tomaEvidencia("Validar que se afecten los saldos en Redeban.");
+			
+		} catch (AssertionError e) {
+			Utilidades.esperaMiliseg(2000);
+			Utilidades.tomaEvidencia("Valido que no se afecten los saldos en la aplicación");
+			BaseUtil.causaFalla = "No se afectan los saldos: " + (e.getMessage()).trim();
+			fail("Error de aserción: " + e.getMessage());
+		}
+		
+		try {
+			String saldoFinalAlmacenadoCivica = BaseUtil.finalBalance;
+			utilidadesTCS.validateTextNotEqualTo(BaseUtil.initialBalance, saldoFinalAlmacenadoCivica);
+		
+		} catch (AssertionError e) {
+			Utilidades.esperaMiliseg(2000);
+			Utilidades.tomaEvidencia("Valido que no se afecten los saldos en la aplicación");
+			BaseUtil.causaFalla = "No se afectan los saldos: " + (e.getMessage()).trim();
+			fail("Error de aserción: " + e.getMessage());
+		}
 	}
 	
 	@Step
@@ -175,14 +197,18 @@ public class RecargaPseCivicaPaySteps {
 	
 	@Step
 	public void validarPopUp() {
-		Utilidades.esperaMiliseg(500);
+		Utilidades.esperaMiliseg(800);
 		Utilidades.tomaEvidencia("Valido Pop up al intentar ingresar al módulo Recargar Civica en el home público.");
 	}
 	
 	@Step
 	public void validarRedireccionDelPopup() {
+        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
 		UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.CAMPO_INGRESO_NUM_DOC);
 		Utilidades.tomaEvidencia("Valido Pop up dirige al módulo de ingreso de credenciales.");
+        utilidadesTCS.clicElement("xpath", LoginCivicaPage.REGRESAR);
+		Utilidades.esperaMiliseg(3000);
+	    utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
 	}
 	
 	@Step

@@ -17,20 +17,22 @@ public class RegistroCivicaDefinitions {
 	BaseUtil base;
 	@Steps
 	Evidencias evidencia;
-	    
 	
 	@When("^registro de las credenciales manual \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void registroDeLasCredencialesManual(String tipoID, String usuario, String contrasenia, String dia, String mes, String anio) {
+	    BaseUtil.usuario = usuario;
 		registroSteps.enterCredentials1(tipoID, usuario, contrasenia, dia, mes, anio);
 	}
 	
 	@When("^ingreso las credenciales con la edad no permitida \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoLasCredencialesNuevamenteConLaEdadNoPermitida(String tipoID, String usuario, String contrasenia, String dia, String mes, String anio) {
+	    BaseUtil.usuario = usuario;
 		registroSteps.enterCredentialsAgeIncorrect(tipoID, usuario, contrasenia, dia, mes, anio);
 	}
 	
 	@When("^registro de las credenciales \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void registroDeLasCredenciales(String tipoID, String usuario, String contrasenia, String dia, String mes, String anio) {
+	    BaseUtil.usuario = usuario;
 		registroSteps.enterCredentials2(tipoID, usuario, contrasenia, dia, mes, anio);
 	}
 	
@@ -46,6 +48,7 @@ public class RegistroCivicaDefinitions {
 
 	@When("^ingreso datos de contacto \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoDatosDeContacto(String numCelular, String correo) {
+	    BaseUtil.numeroCelular = numCelular;
 		registroSteps.enterContactInfo(numCelular, correo);
 	}
 	

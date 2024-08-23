@@ -21,6 +21,7 @@ public class CambioClaveOlvidoDefinitions {
 	
 	@Given("^ingreso al módulo 'Olvidaste tu clave' \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoAlModuloOlvidasteTuClave(String tipoID, String usuario) {
+	    BaseUtil.usuario = usuario;
 		cambioClaveOlvidoSteps.forgotPassOption(tipoID, usuario);
 	}
 	

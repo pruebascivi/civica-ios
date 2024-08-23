@@ -20,7 +20,6 @@ public class PagoServiciosDefinitions {
 	@Steps
 	Evidencias evidencia;
 	
-	
 	@Given("^ingreso al modulo 'Hacer pagos' \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoAlModuloHacerPagos(String servicio, String referencia) {
 		pagoServiciosSteps.enterIntoHacerPagos(servicio, referencia);
@@ -45,6 +44,4 @@ public class PagoServiciosDefinitions {
 	public void validoSolicitudPermisosParaEscanearCodigos() {
 		pagoServiciosSteps.validarPermisoScan();
 	}
-
-	
 }

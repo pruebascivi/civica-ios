@@ -1,24 +1,12 @@
 package civica.nacional.iOS.utilidades;
 
 import cucumber.api.Scenario;
-//import civica.nacional.iOS.steps.MarketPlaceSteps;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.ios.IOSElement;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.Pattern;
-
-import com.github.javafaker.Faker;
-
-import civica.nacional.iOS.definitions.Hooks;
-
 import civica.nacional.iOS.pageObjects.SacarPlataPageObjects;
 import civica.nacional.iOS.pageObjects.WebRedebanPageObjects;
 import civica.nacional.iOS.steps.SacarPlataSteps;
@@ -69,8 +57,10 @@ public class BaseUtil {
 	public static String [] NombreImage = new String[100];
 	public static String nombreBolsillo = "";
 	//Datos Set Operacion - Regresion
-	public static String usuario = "-";
+	public static String usuario = "No Aplica";
 	public static String numeroCelular = "No Aplica";
+	public static String versionApp = "No Aplica";
+	public static String causaFalla = "No Aplica";
 	public static String saldoIni = "-";
 	public static String cuentaONumero = "-";
 	public static String cuentaONumero2 = "-";
@@ -91,6 +81,7 @@ public class BaseUtil {
 	public static String finalBalance = "";
 	public static String saldoConvertidoWebRedebanInicial = "";
 	public static ArrayList<Float> saldos = new ArrayList<Float>();
+	public static ArrayList<Float> saldoDestino = new ArrayList<Float>();
 	//Codigo autorizador - Nuevo flujo
 	public static String newAut = "";
 	public static String AutorizadorNuevo;
@@ -103,4 +94,5 @@ public class BaseUtil {
 	public static String baseMail;	
 	public static String txtFav;
 	public static boolean estadoRecargaTarjetaCivica;
+	
 }

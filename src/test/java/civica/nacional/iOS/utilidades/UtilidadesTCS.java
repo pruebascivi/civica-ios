@@ -18,6 +18,7 @@ import civica.nacional.iOS.definitions.Hooks;
 import civica.nacional.iOS.pageObjects.CambioClaveCivicaPage;
 import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.RecargaTarjetaCivicaPage;
+import civica.nacional.iOS.pageObjects.WebRedebanPageObjects;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -43,7 +44,7 @@ public class UtilidadesTCS extends PageObject {
 	static int contador = 0;
 	private static WebDriverWait wait = Hooks.getDriverWait();
 	private static AppiumDriver<MobileElement> driver = Hooks.getDriver();
-	
+	WebRedebanPageObjects webRedebanPageObjects;
 	
 	public void scrollToElement(String locator, String tipoId) {
 		MobileElement element = (MobileElement) findElement("xpath", locator);
@@ -450,37 +451,6 @@ public class UtilidadesTCS extends PageObject {
 			if (!(contador == 10)) {
 				Utilidades.esperaMiliseg(500);
 				esperarElementVisibility(locatorType, locator);
-			} else {
-				fail("No se encontró el elemento: " + locator + ", debido a: " + e.getMessage());
-			}
-		} finally {
-			contador = 0;
-		}
-	}
-	
-	public void waitElementVisibilityWeb(String locatorType, String locator) {
-		By by = null;
-
-		switch (locatorType) {
-		case "name":
-			by = By.name(locator);
-			break;
-		case "id":
-			by = By.id(locator);
-			break;
-		case "xpath":
-			by = By.xpath(locator);
-			break;
-		default:
-			throw new IllegalArgumentException("Tipo de localizador no válido: " + locatorType);
-		}
-
-		try {
-			contador++;
-		} catch (Exception e) {
-			if (!(contador == 15)) {
-				Utilidades.esperaMiliseg(500);
-				waitElementVisibilityWeb(locatorType, locator);
 			} else {
 				fail("No se encontró el elemento: " + locator + ", debido a: " + e.getMessage());
 			}
@@ -1229,5 +1199,155 @@ public class UtilidadesTCS extends PageObject {
                 .perform();
 
         System.out.println("Moví elemento de minutos");
+    }
+    
+    /**
+     * Método para validar un elemento visible que retorna un boolean
+     * 
+	 * @param locatorType : Tipo de localizador utilizado para identificar el elemento (por ejemplo, "name", "id" o "xpath").
+	 * @param locator : Valor del localizador que especifica la ubicación del elemento.
+     * @return check = true or false de a cuerdo si el elemento es visible o no
+     */
+	public boolean validateElementVisibilityCatch(String locatorType, String locator) {
+		BaseUtil.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		boolean check = false;
+		By by = null;
+
+		switch (locatorType) {
+		case "name":
+			by = By.name(locator);
+			break;
+		case "id":
+			by = By.id(locator);
+			break;
+		case "xpath":
+			by = By.xpath(locator);
+			break;
+		default:
+			throw new IllegalArgumentException("Tipo de localizador no válido: " + locatorType);
+		}
+
+		try {
+			check = BaseUtil.driver.findElement(by).isDisplayed();
+			System.out.println("Se verifica presencia del elemento: " + locator);
+		} catch (Exception e) {
+			System.out.println("No se pudo interactuar con el elemento: " + locator);
+		}
+		return check;
+	}
+	
+	public void waitElementVisibilityWeb(String locatorType, String locator) {
+		By by = null;
+
+		switch (locatorType) {
+		case "name":
+			by = By.name(locator);
+			break;
+		case "id":
+			by = By.id(locator);
+			break;
+		case "xpath":
+			by = By.xpath(locator);
+			break;
+		default:
+			throw new IllegalArgumentException("Tipo de localizador no válido: " + locatorType);
+		}
+
+		try {
+			contador++;
+		} catch (Exception e) {
+			if (!(contador == 15)) {
+				Utilidades.esperaMiliseg(500);
+				waitElementVisibilityWeb(locatorType, locator);
+			} else {
+				fail("No se encontró el elemento: " + locator + ", debido a: " + e.getMessage());
+			}
+		} finally {
+			contador = 0;
+		}
+	}
+    
+	/**
+     * Método que espera hasta que un elemento se desaparezca de la pantalla
+     * Tiempo que pregunta repetitivo: Cada 2 Seg
+     * Tiempo máximo de espera: 1 minuto
+     * 
+     * @author Jonathan Vargas Ríos
+     * 
+	 * @param locator : Valor del localizador que especifica la ubicación del elemento.
+     * @param maxWait en segundos
+     */
+    public void esperaCargaElemento(String locator, int maxWait) {
+        boolean isElementProgressBarVisible = true;
+        boolean elementVisible = true;
+        int timeCont = 1;
+        
+        while(elementVisible) {
+            System.out.println("Cargando... " + locator);
+            isElementProgressBarVisible = validateElementVisibilityCatch("xpath", locator);
+            Utilidades.esperaMiliseg(1000);
+            timeCont++;
+            
+            if(!isElementProgressBarVisible) {
+                elementVisible = false;
+                Utilidades.esperaMiliseg(5000);
+                System.out.println("Terminó la espera del elemento.");
+                
+            } else if(timeCont == maxWait) {
+    			fail("Tiempo de espera superado.");
+            }
+        }
+    }
+    
+    public boolean esperaElementVisibilityWeb(String locatorType, String locator) {
+		BaseUtil.chromeDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		boolean check = false;
+		By by = null;
+
+		switch (locatorType) {
+		case "name":
+			by = By.name(locator);
+			break;
+		case "id":
+			by = By.id(locator);
+			break;
+		case "xpath":
+			by = By.xpath(locator);
+			break;
+		default:
+			throw new IllegalArgumentException("Tipo de localizador no válido: " + locatorType);
+		}
+
+		try {
+			check = BaseUtil.chromeDriver.findElement(by).isDisplayed();
+			System.out.println("Se verifica presencia del elemento: " + locator);
+		} catch (Exception e) {
+			System.out.println("No se pudo interactuar con el elemento: " + locator);
+		}
+		return check;
+    }
+    
+    
+    public void esperaCargaElementoWeb(String locator, int maxWait) {
+        boolean isElementProgressBarVisible = true;
+        boolean elementVisible = true;
+        int timeCont = 1;
+        
+        while(elementVisible) {
+            System.out.println("Cargando... " + locator);
+            isElementProgressBarVisible = esperaElementVisibilityWeb("xpath", locator);
+            Utilidades.esperaMiliseg(1000);
+            timeCont++;
+            
+            if(!isElementProgressBarVisible) {
+                elementVisible = false;
+                Utilidades.esperaMiliseg(5000);
+                System.out.println("Terminó la espera del elemento.");
+                
+            } else if(timeCont == maxWait) {
+    			WebRedebanPageObjects.cerrarWebRedeban();
+    			fail("Tiempo de espera superado.");
+            }
+        }
     }
 }

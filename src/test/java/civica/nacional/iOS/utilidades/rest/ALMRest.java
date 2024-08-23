@@ -121,7 +121,6 @@ public class ALMRest {
 				+ "            \"values\": [\r\n" + "                {\r\n" + "                    \"value\": \""
 				+ hours + "\"\r\n" + "                }\r\n" + "            ]\r\n" + "        }\r\n" + "    ]\r\n"
 				+ "}";
-
 	}
 
 	/**
@@ -146,7 +145,6 @@ public class ALMRest {
 				+ "            \"values\": [\r\n" + "                {\r\n" + "                    \"value\": \""
 				+ hours + "\"\r\n" + "                }\r\n" + "            ]\r\n" + "        }\r\n" + "    ]\r\n"
 				+ "}";
-
 	}
 
 	/**
@@ -829,7 +827,6 @@ public class ALMRest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**

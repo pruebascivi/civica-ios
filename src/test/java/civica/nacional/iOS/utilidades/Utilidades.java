@@ -38,12 +38,9 @@ public class Utilidades {
 
 	BaseUtil base;
 	private static AppiumDriver<MobileElement> driver = Hooks.getDriver();
-
 	private static String dato = "Vacio";
 	private static int contador = 0;
 	private static WebDriverWait wait = Hooks.getDriverWait();
-
-
 
 	/**
 	 * Dar un tap en iOS-- puede servir para otras herramientas como uiautomator2
@@ -120,9 +117,7 @@ public class Utilidades {
 	 * @return
 	 */
 	public static BigDecimal generarNumero() {
-
 		Random numAleatorio = new Random();
-		Random numAleatorio1 = new Random(234);
 		int n = (numAleatorio.nextInt(15000 - 5000 + 1) + 5000);
 		String valor = String.valueOf(n);
 		BigDecimal monto = new BigDecimal(valor);
@@ -144,7 +139,6 @@ public class Utilidades {
 			salida = salida + valor;
 		}
 		return salida;
-
 	}
 
 	/**
@@ -256,7 +250,6 @@ public class Utilidades {
 		TouchAction touch = new TouchAction(driver);
 		touch.press(PointOption.point(start_x, start_y)).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(1)))
 				.moveTo(PointOption.point(end_x, end_y)).release().perform();
-
 		// Utilidades.moverPantalla(150, 570);
 		// Utilidades.moverPantalla(150, 370);
 
@@ -326,7 +319,6 @@ public class Utilidades {
 		new TouchAction(Hooks.getDriver()).press(PointOption.point(anchor, startPoint))
 				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100))).moveTo(PointOption.point(anchor, endPoint))
 				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(200))).release().perform();
-
 	}
 
 	/**
@@ -360,7 +352,6 @@ public class Utilidades {
 		}
 	}
 
-	
 	public static void tomaEvidenciaResaltado(String detalle, WebElement webElement) {
 		try {
 			Evidencias.capturaDispositivoResaltado(detalle, webElement);
@@ -379,7 +370,6 @@ public class Utilidades {
 		//return textImage;
 	}
 	
-	
 	public static void tomaEvidenciaPantallaWeb(String detalle) {
 		try {
 			Evidencias.capturaPantallaWeb(detalle);
@@ -387,8 +377,6 @@ public class Utilidades {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	public static void modificarEstiloScroll () {
 		// Modificar el estilo del scroll
@@ -517,7 +505,6 @@ public class Utilidades {
 			tomaEvidencia("Se esperaba " + consignado + " pero fue " + subSaldo);
 			assertTrue("Se esperaba " + consignado + " pero fue " + subSaldo, false);
 		}
-
 	}
 
 	/**
@@ -726,14 +713,13 @@ public class Utilidades {
 				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
 				.moveTo(PointOption.point(anchor, endPoint)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
 				.release().perform();
-
 	}
 
 	public void validacionDeSaldos() {
 
-		BigDecimal subSaldo = base.saldo.subtract(base.montoTransado);
-		subSaldo = subSaldo.subtract(base.comision);
-		String saldoFinal = String.valueOf(base.saldoFinal).split("\\.")[0];
+		BigDecimal subSaldo = BaseUtil.saldo.subtract(BaseUtil.montoTransado);
+		subSaldo = subSaldo.subtract(BaseUtil.comision);
+		String saldoFinal = String.valueOf(BaseUtil.saldoFinal).split("\\.")[0];
 		String subSaldoString = String.valueOf(subSaldo).split("\\.")[0];
 		assertEquals(saldoFinal, subSaldoString);
 
@@ -754,7 +740,7 @@ public class Utilidades {
 
 	}
 
-//Press by coordinates
+	//Press by coordinates
 	public void pressByCoordinates(int x, int y, long seconds) {
 		new TouchAction(driver).press(point(x, y)).waitAction(waitOptions(ofSeconds(seconds))).release().perform();
 	}

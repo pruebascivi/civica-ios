@@ -1,9 +1,6 @@
 package civica.nacional.iOS.definitions;
 
 import java.math.BigDecimal;
-import cucumber.api.Scenario;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import net.thucydides.core.annotations.Steps;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -11,6 +8,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import civica.nacional.iOS.modelo.ConsultaCupoTarjeta;
+import civica.nacional.iOS.modelo.ConsultaCupoTarjetaDestino;
 import civica.nacional.iOS.steps.WebRedebanSteps;
 import civica.nacional.iOS.utilidades.BaseUtil;
 import civica.nacional.iOS.utilidades.Utilidades;
@@ -18,22 +16,18 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import net.serenitybdd.core.Serenity;
 
-
 public class WebRedebanDefinitions {
 	
 	Hooks Hooks;
 	BaseUtil base;
 	BigDecimal valorHome = null;
 	BigDecimal valorTransferencia = null;
-	private Scenario scenario = Hooks.scenario;
-	private AppiumDriver<MobileElement> driver = Hooks.getDriver();
 	Utilidades utilidad;
 	Utilidades Utilidades;
 	static String numCelular = "";
 	
 	@Steps
 	WebRedebanSteps stepsWebRedeban;
-	
 	
 	@Given("^consultar saldo tarjeta en redeban \"([^\"]*)\"$")
     public void consultarSaldoTarjetaEnRedeban(String usuario) throws Exception {
@@ -123,7 +117,6 @@ public class WebRedebanDefinitions {
 	
 	@Then("^valido igualdad saldos cuenta origen y destino$")
     public void validarIgualdadSaldosUsuarios() throws Exception {
-        boolean flag = false;
         int cantidadSaldos = BaseUtil.saldos.size();
         if (cantidadSaldos == 8) {
             double sumaPrimeraTarjetaCliente1 = BaseUtil.saldos.get(0) + BaseUtil.saldos.get(1);
@@ -136,11 +129,10 @@ public class WebRedebanDefinitions {
         }else {
             System.out.println("No pude validar saldos");
         }
-}
+	}
 	
 	@Then("^valido igualdad saldos cuenta origen$")
 	public void validoIgualdadSaldosCuentaOrigen() {
-        boolean flag = false;
 		
 		int cantidadSaldos = BaseUtil.saldos.size();
 		if (cantidadSaldos == 4) {
@@ -161,7 +153,13 @@ public class WebRedebanDefinitions {
 	
 	@Given("^Validar en redeban subtipo \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void validarEnRedebanSubtipo(String cuenta, String subtipo, String celular) throws Exception {
+	    BaseUtil.numeroCelular = celular;
 		BaseUtil.montoTrasadoRedeban = stepsWebRedeban.consultasubtipo(cuenta, subtipo, celular);
+	}
+	
+	@Given("^Validar en redeban subtipo destino \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+	public void validarEnRedebanSubtipoDestino(String cuenta, String subtipo, String celular) throws Exception {
+		BaseUtil.montoTrasadoRedeban = stepsWebRedeban.consultasubtipoDestino(cuenta, subtipo, celular);
 	}
 	
 	@Given("^Validar en redeban el subtipo del usuario \"([^\"]*)\" \"([^\"]*)\"$")
@@ -206,9 +204,14 @@ public class WebRedebanDefinitions {
 	
 	@Given("^Obtener numero celular actual en redeban \"([^\"]*)\"$")
 	public void obtenerNumeroCelularActualEnRedebanAumentoDeTopes(String usuario) throws Exception {
+		BaseUtil.numeroCelular = numCelular;
 		numCelular = stepsWebRedeban.consultaNumeroCelular(usuario);
 		assertNotNull(numCelular);
-		BaseUtil.numeroCelular = numCelular;
+	}
+	
+	@Given("^Obtener numero celular destino en redeban \"([^\"]*)\"$")
+	public void obtenerNumeroCelularDestinoEnRedebanAumentoDeTopes(String usuario) throws Exception {
+		stepsWebRedeban.consultaNumeroCelularDestino(usuario);
 	}
 	
 	@Given("^Consultar saldos en redeban$")
@@ -220,11 +223,20 @@ public class WebRedebanDefinitions {
 		System.out.println("Real Disponible tarjeta " + numTarjeta + ": " + cupoTarjeta.getRealDisponible());
 	}
 	
+	@Given("^Consultar saldos usuario destino en redeban$")
+	public void consultarSaldoUsuarioDestinoEnRedeban() throws Exception {
+		String numTarjetaDestino = stepsWebRedeban.returnNumeroTarjetaDestino();
+		ConsultaCupoTarjetaDestino cupoTarjetaDestino = stepsWebRedeban.consultaCuposTarjetaDestino(numTarjetaDestino);
+		float realDisponibleDestino = Float.parseFloat(cupoTarjetaDestino.getRealDisponibleDestino().replace(".", "").replace(",", "."));
+		BaseUtil.saldoDestino.add(realDisponibleDestino);
+		System.out.println("Real Disponible tarjeta destino " + numTarjetaDestino + ": " + cupoTarjetaDestino.getRealDisponibleDestino());
+	}
+	
 	@Then("^Validar en redeban la transansaccion \"([^\"]*)\"$")
     public void validarEnRedeban(String cuenta) throws Exception {
         System.out.println("base: " + BaseUtil.Autorizador);
-        BaseUtil.idTransaccion = base.Autorizador;
-        BaseUtil.montoTrasadoRedeban = stepsWebRedeban.consultaDiaria3(cuenta, base.Autorizador);
+        BaseUtil.idTransaccion = BaseUtil.Autorizador;
+        BaseUtil.montoTrasadoRedeban = stepsWebRedeban.consultaDiaria3(cuenta, BaseUtil.Autorizador);
         System.out.println("El monto transado es: " + BaseUtil.montoTrasadoRedeban);
     }
 	

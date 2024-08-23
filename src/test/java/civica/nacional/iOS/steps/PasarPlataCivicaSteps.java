@@ -1,11 +1,14 @@
 package civica.nacional.iOS.steps;
 
+import static org.junit.Assert.fail;
+
 import java.math.BigDecimal;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import civica.nacional.iOS.definitions.Hooks;
+import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.PasarPlataCivicaPage;
 import civica.nacional.iOS.utilidades.BaseUtil;
 import civica.nacional.iOS.utilidades.Utilidades;
@@ -117,23 +120,42 @@ public class PasarPlataCivicaSteps {
 	
 	@Step
 	public void validarSaldosInicialesCivica () {
-        WebDriverWait wait = new WebDriverWait(driver, 1);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PasarPlataCivicaPage.SALDOS_HOME)));
-		UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
-		String saldo = utilidadesTCS.obtenerTexto("xpath", PasarPlataCivicaPage.SALDOS_HOME);
-		BaseUtil.initialBalance  = UtilidadesTCS.removeDecimalBalances(saldo);
-		String saldoRedeban = Double.toString(BaseUtil.saldos.get(0));
-		BaseUtil.saldoConvertidoWebRedebanInicial = UtilidadesTCS.removeDecimalBalancesWeb(saldoRedeban);
-		utilidadesTCS.validateTextEqualTo(BaseUtil.initialBalance, BaseUtil.saldoConvertidoWebRedebanInicial);
-		Utilidades.tomaEvidencia("Validar saldos iniciales de Cívica");
+		try {
+	        WebDriverWait wait = new WebDriverWait(driver, 1);
+	        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PasarPlataCivicaPage.SALDOS_HOME)));
+			UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
+			String saldo = utilidadesTCS.obtenerTexto("xpath", PasarPlataCivicaPage.SALDOS_HOME);
+			BaseUtil.initialBalance  = UtilidadesTCS.removeDecimalBalances(saldo);
+			String saldoRedeban = Double.toString(BaseUtil.saldos.get(0));
+			BaseUtil.saldoConvertidoWebRedebanInicial = UtilidadesTCS.removeDecimalBalancesWeb(saldoRedeban);
+			utilidadesTCS.validateTextEqualTo(BaseUtil.initialBalance, BaseUtil.saldoConvertidoWebRedebanInicial);
+			Utilidades.tomaEvidencia("Validar saldos iniciales de Cívica");
+			
+		} catch (AssertionError e) {
+			Utilidades.esperaMiliseg(2000);
+			Utilidades.tomaEvidencia("Valido que no se afecten los saldos en la aplicación");
+			BaseUtil.causaFalla = "No se afectan los saldos en la aplicación";
+			fail("Error de aserción: " + e.getMessage());
+		}
 	}
 	
 	@Step
 	public void capturarSaldosFinalesCivica() {
-		UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
-		String saldoFinal = utilidadesTCS.obtenerTexto("xpath", PasarPlataCivicaPage.SALDOS_HOME);
-		BaseUtil.finalBalance = UtilidadesTCS.removeDecimalBalances(saldoFinal);
-		Utilidades.tomaEvidencia("Validar saldo final");
+		try {
+			Utilidades.esperaMiliseg(2000);
+	        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+			UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
+			String saldoFinal = utilidadesTCS.obtenerTexto("xpath", PasarPlataCivicaPage.SALDOS_HOME);
+			BaseUtil.finalBalance = UtilidadesTCS.removeDecimalBalances(saldoFinal);
+			utilidadesTCS.validateTextNotEqualTo(BaseUtil.initialBalance, BaseUtil.finalBalance);
+			Utilidades.tomaEvidencia("Validar saldo final");
+			
+		} catch (AssertionError e) {
+			Utilidades.esperaMiliseg(2000);
+			Utilidades.tomaEvidencia("Valido que no se afecten los saldos en la aplicación");
+			BaseUtil.causaFalla = "No se afectan los saldos en la aplicación";
+			fail("Error de aserción: " + e.getMessage());
+		}
 	}
 	
 	@Step

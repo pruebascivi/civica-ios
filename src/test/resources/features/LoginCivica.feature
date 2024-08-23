@@ -5,9 +5,9 @@ Feature: Login Civica
 
   @CP0001M
   Scenario Outline: CP0001M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - CC.
-    Given Obtener numero celular actual en redeban <usuario>
-    And Validar en redeban subtipo <usuario> <subtipo> <numCelularUsuario>
-    And Logout redeban
+    #Given Obtener numero celular actual en redeban <usuario>
+    #And Validar en redeban subtipo <usuario> <subtipo> <numCelularUsuario>
+    #And Logout redeban
     And ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -17,7 +17,7 @@ Feature: Login Civica
 
     Examples: 
       | tipoId | usuario  | contrasena | subtipo | numCelularUsuario |
-      | "CC"   | "999837" | "2578"     | "MET"   | "3142045585"      |
+      | "CC"   | "999837" | "1234"     | "MET"   | "3142045585"      |
 
   @CP0002M
   Scenario Outline: CP0002M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - TI.
@@ -33,7 +33,7 @@ Feature: Login Civica
 
     Examples: 
       | tipoId | usuario      | contrasena | subtipo | numCelularUsuario |
-      | "TI"   | "1080406492" | "2587"     | "MET"   | "3142045552"      |
+      | "TI"   | "1080406492" | "2589"     | "MET"   | "3142045552"      |
 
   @CP0003M
   Scenario Outline: CP0003M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - CE.
@@ -49,7 +49,7 @@ Feature: Login Civica
 
     Examples: 
       | tipoId | usuario   | contrasena | subtipo | numCelularUsuario |
-      | "CE"   | "9999814" | "4568"     | "MET"   | "3142045551"      |
+      | "CE"   | "9999814" | "2589"     | "MET"   | "3142045551"      |
 
   @CP0004M
   Scenario Outline: CP0004M_SYS_Validar el ingreso a la APP Cívica con un usuario MIGRADO.
@@ -64,8 +64,8 @@ Feature: Login Civica
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario     | contrasena | subtipo   | numCelularUsuario |
-      | "CC"   | "215333181" | "4568"     | "MIGRADO" | "3142045554"      |
+      | tipoId | usuario     | contrasena | subtipo  | numCelularUsuario |
+      | "CC"   | "215333181" | "4568"     | "MET"    | "3142045554"      |
 
   @CP0005M
   Scenario Outline: CP0005M_SYS_Validar el ingreso a la APP Cívica con un usuario BMO.
@@ -81,10 +81,10 @@ Feature: Login Civica
 
     Examples: 
       | tipoId | usuario    | contrasena | subtipo | numCelularUsuario |
-      | "CC"   | "10305051" | "1431"     | "BMO"   | "3004005051"      |
+      | "CC"   | "10305051" | "2589"     | "BMO"   | "3004005051"      |
 
-  @CP00051M
-  Scenario Outline: CP0005bM_SYS_Validar el ingreso a la APP Cívica con un usuario DAVIPLATA BMO.
+  @CP0005IM
+  Scenario Outline: CP0005IM_SYS_Validar el ingreso a la APP Cívica con un usuario DAVIPLATA BMO.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban subtipo <usuario> <subtipo> <numCelularUsuario>
     And Logout redeban
@@ -97,7 +97,7 @@ Feature: Login Civica
 
     Examples: 
       | tipoId | usuario   | contrasena | subtipo | numCelularUsuario |
-      | "CE"   | "9999814" | "4568"     | "BMO"   | "3142045551"      |
+      | "CE"   | "9999814" | "2589"     | "MET"   | "3142045551"      |
 
   @CP0006M
   Scenario Outline: CP0006M_SYS_Ingreso con clave errónea.

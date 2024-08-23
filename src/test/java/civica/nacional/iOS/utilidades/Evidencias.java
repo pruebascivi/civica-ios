@@ -30,7 +30,6 @@ import org.apache.poi.xwpf.usermodel.XWPFFooter;
 import org.apache.poi.xwpf.usermodel.XWPFHeader;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
@@ -53,7 +52,6 @@ public class Evidencias {
 	static FileOutputStream out;
 	public static int numeroScreen = 1;
 	public static Date fechaPrueba;
-	public static String versionApp;
 	public static String nombreImagen;
 	public static String []nombreimagen = new String[100];
 	public static int contador = 0;
@@ -267,16 +265,31 @@ public class Evidencias {
 			paragraphsixRunOne.setFontSize(14);
 			paragraphsixRunOne.setFontFamily("Verdana");
 			paragraphsixRunOne.setColor("000070");
-			paragraphsixRunOne.setText("Estado de Ejecución:");////////////////////
+			paragraphsixRunOne.setText("Estado de Ejecución:");
 
 			if (estadoCaso.equals("PASSED")) {
-
 				paragraphsixRunOne.setColor("0BA20B");
-				paragraphsixRunOne.setText(" " + estadoCaso);////////////////////
+				paragraphsixRunOne.setText(" " + estadoCaso);
+				
 			} else {
 				paragraphsixRunOne.setColor("EF1111");
-				paragraphsixRunOne.setText(" " + estadoCaso);////////////////////
+				paragraphsixRunOne.setText(" " + estadoCaso);
 			}
+			
+			paragraphFour = document.createParagraph();
+			paragraphFour.setAlignment(ParagraphAlignment.LEFT);
+			paragraphsixRunOne = paragraphFour.createRun();
+			paragraphsixRunOne.setBold(true);
+			paragraphsixRunOne.setFontSize(10);
+			paragraphsixRunOne.setFontFamily("Verdana");
+			paragraphsixRunOne.setColor("000070");
+			paragraphsixRunOne.setText("Causa de la falla: ");
+			
+			if (estadoCaso.equals("FAILED")) {
+				paragraphsixRunOne.setColor("000070");
+				paragraphsixRunOne.setText(BaseUtil.causaFalla);
+			}
+			
 			paragraphFour = document.createParagraph();
 			paragraphFour.setAlignment(ParagraphAlignment.LEFT);
 			paragraphsixRunOne = paragraphFour.createRun();
@@ -285,6 +298,7 @@ public class Evidencias {
 			paragraphsixRunOne.setFontFamily("Verdana");
 			paragraphsixRunOne.setColor("000070");
 			paragraphsixRunOne.setText("Tiempo de Ejecución: " + tiempo);
+			
 			Capabilities dc = Hooks.getDriver().getCapabilities();
 			paragraphFour = document.createParagraph();
 			paragraphFour.setAlignment(ParagraphAlignment.LEFT);
@@ -338,7 +352,7 @@ public class Evidencias {
 			paragraphsixRunOne.setFontSize(14);
 			paragraphsixRunOne.setFontFamily("Verdana");
 			paragraphsixRunOne.setColor("000070");
-			paragraphsixRunOne.setText("Versión App: " + versionApp);
+			paragraphsixRunOne.setText("Versión App: " + BaseUtil.versionApp);
 			
 			paragraphFour = document.createParagraph();
 			paragraphFour.setAlignment(ParagraphAlignment.LEFT);
@@ -349,14 +363,16 @@ public class Evidencias {
 			paragraphsixRunOne.setColor("000070");
 			paragraphsixRunOne.setText("Usuario: " + BaseUtil.usuario);
 			
-			paragraphFour = document.createParagraph();
-			paragraphFour.setAlignment(ParagraphAlignment.LEFT);
-			paragraphsixRunOne = paragraphFour.createRun();
-			paragraphsixRunOne.setBold(true);
-			paragraphsixRunOne.setFontSize(14);
-			paragraphsixRunOne.setFontFamily("Verdana");
-			paragraphsixRunOne.setColor("000070");
-			paragraphsixRunOne.setText("Celular de Usuario: " + BaseUtil.numeroCelular);
+			if(!BaseUtil.numeroCelular.contentEquals("No Aplica")) {
+				paragraphFour = document.createParagraph();
+				paragraphFour.setAlignment(ParagraphAlignment.LEFT);
+				paragraphsixRunOne = paragraphFour.createRun();
+				paragraphsixRunOne.setBold(true);
+				paragraphsixRunOne.setFontSize(14);
+				paragraphsixRunOne.setFontFamily("Verdana");
+				paragraphsixRunOne.setColor("000070");
+				paragraphsixRunOne.setText("Celular de Usuario: " + BaseUtil.numeroCelular);
+			}
 
 //		paragraphsixRunOne.addBreak();
 

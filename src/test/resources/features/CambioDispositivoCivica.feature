@@ -5,6 +5,9 @@ Feature: Cambio de dispositivo Cívica.
 
   @CP0007M
   Scenario Outline: CP0007M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - CC.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -13,11 +16,14 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario  | contrasena |
-      | "CC"   | "999837" | "2578"     |
+      | tipoId | usuario    | contrasena | subtipo |
+      | "CC"   | "10305051" | "2589"     | "MET"   |
 
   @CP0008M
   Scenario Outline: CP0008M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - CE.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -26,11 +32,14 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario   | contrasena |
-      | "CE"   | "9999814" | "4568"     |
+      | tipoId | usuario   | contrasena  | subtipo |
+      | "CE"   | "9999814" | "2589"      | "MET"   |
 
   @CP0009M
   Scenario Outline: CP0009M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - TI.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -39,11 +48,14 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario      | contrasena |
-      | "TI"   | "1080406492" | "2587"     |
+      | tipoId | usuario      | contrasena | subtipo |
+      | "TI"   | "1080406492" | "2589"     | "MET"   |
 
   @CP0010M
   Scenario Outline: CP0010M_SYS_Validar el ingreso a la APP Cívica con un usuario MIGRADO.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -52,11 +64,14 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario     | contrasena |
-      | "CC"   | "215333181" | "1342"     |
+      | tipoId | usuario    | contrasena | subtipo   |
+      | "CC"   | "10305051" | "2589"     | "MIGRADO" |
 
   @CP0011M
   Scenario Outline: CP0011M_SYS_Validar el ingreso a la APP Cívica con un usuario BMO.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -65,11 +80,14 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario    | contrasena |
-      | "CC"   | "10305051" | "1431"     |
+      | tipoId | usuario    | contrasena | subtipo |
+      | "CC"   | "10305051" | "2589"     | "BMO"   |
 
   @CP00111M
   Scenario Outline: CP00111M_SYS_Validar el ingreso a la APP Cívica con un usuario DAVIPLATA.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -78,12 +96,15 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario   | contrasena |
-      | "CE"   | "9999814" | "4568"     |
+      | tipoId | usuario   | contrasena  | subtipo    |
+      | "CE"   | "9999814" | "2589"      | "DAVIPLATA"|
 	
 	#FALTA DATA
   @CP00112M 
   Scenario Outline: CP00112M_SYS_Validar el ingreso a la APP Cívica con un usuario RAPPI.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When ingreso las credenciales <tipoId> <usuario> <contrasena>
@@ -92,11 +113,14 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario   | contrasena |
-      | "CE"   | "9999814" | "4568"     |
+      | tipoId | usuario   | contrasena  | subtipo |
+      | "CE"   | "9999814" | "2589"      | "RAPPI" |
       
   @CP0012M
   Scenario Outline: CP0012M_SYS_Ingreso con clave errónea.
+    Given Obtener numero celular actual en redeban <usuario>
+    And Validar en redeban el subtipo del usuario <usuario> <subtipo>
+    And Logout redeban
     Given ingreso al aplicativo
     And verifico la version del aplicativo
     When Validar el mensaje de rechazo cuando se ingresa mal la clave de ingreso <tipoId> <usuario> <badPass> <contrasena>
@@ -104,5 +128,5 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario  | badPass | contrasena |
-      | "CC"   | "999798" | "0000"  |  "2580"    |
+      | tipoId | usuario   | badPass | contrasena | subtipo |
+      | "CE"   | "9999814" | "0000"  |  "2589"    | "MET"   |

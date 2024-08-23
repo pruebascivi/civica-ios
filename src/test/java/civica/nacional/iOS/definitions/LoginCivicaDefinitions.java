@@ -29,8 +29,8 @@ public class LoginCivicaDefinitions {
 
 	@When("^ingreso las credenciales \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoLasCredenciales(String tipoID, String usuario, String contrasenia) throws Exception {
-	    loginRobustoSteps.enterCredentials(tipoID, usuario, contrasenia);
 	    BaseUtil.usuario = usuario;
+		loginRobustoSteps.enterCredentials(tipoID, usuario, contrasenia);
 	}
 	
 	@When("^ingreso nuevamente clave de manera errónea \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
@@ -48,6 +48,11 @@ public class LoginCivicaDefinitions {
 		loginRobustoSteps.verifyToBeInsideTheApp();
 	}
 	
+	@Then("^Logout app$")
+	public void logoutApp()	{
+		loginRobustoSteps.logoutApp();
+	}
+	
 	@When("^Valido que el usuario al ingresar por (\\d+) vez la clave incorrecta del ingreso en APP Cívica se debe inhabilitar el campo “Clave” y se debe mostrar al usuario el mensaje “Algo salió mal$")
 	public void validaoQueElUsuarioAlIngresarPorVezLaClaveIncorrectaDelIngresoEnAPPCívicaSeDebeInhabilitarElCampoClaveYSeDebeMostrarAlUsuarioElMensajeAlgoSalióMal(int arg1) {
 		loginRobustoSteps.validatePopupErrorMaxLoginAttempt();
@@ -55,8 +60,8 @@ public class LoginCivicaDefinitions {
 	
 	@Then("^Validar el mensaje de rechazo cuando se ingresa mal la clave de ingreso \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void validarElMensajeDeRechazoCuandoSeIngresaMalLaClaveDeIngreso(String tipoID, String usuario, String badPass, String contrasenia) throws Exception {
-		loginRobustoSteps.checkWrongPassword(tipoID, usuario, badPass, contrasenia);
 	    BaseUtil.usuario = usuario;
+		loginRobustoSteps.checkWrongPassword(tipoID, usuario, badPass, contrasenia);
 	}
 	
 	@When("^Cerrar sesion desde el home$")
@@ -67,7 +72,7 @@ public class LoginCivicaDefinitions {
 	/*PASO PARA VALIDAR INGRESO A LA APP DESPUES DE CAMBIAR CONTRASEÑA*/
 	@When("^ingreso las credenciales con contraseña nueva \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoLasCredencialesConContrasenaNueva(String tipoID, String usuario, String newPass) throws Exception {
-	    loginRobustoSteps.enterCredentialsNewPass(tipoID, usuario, newPass);
 	    BaseUtil.usuario = usuario;
+		loginRobustoSteps.enterCredentialsNewPass(tipoID, usuario, newPass);
 	}
 }

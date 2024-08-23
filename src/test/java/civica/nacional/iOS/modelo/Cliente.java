@@ -1,7 +1,5 @@
 package civica.nacional.iOS.modelo;
 
-import net.thucydides.core.annotations.Steps;
-
 public class Cliente {
 
 	private ConsultaClientes consultaClientes;
@@ -37,6 +35,5 @@ public class Cliente {
 		return "Cliente [consultaClientes=" + consultaClientes + ", consultaCupoTarjeta=" + consultaCupoTarjeta
 				+ ", consultaMovimientoHistorico=" + consultaMovimientoHistorico + "]";
 	}
-
 }
 

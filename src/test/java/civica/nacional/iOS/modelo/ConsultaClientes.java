@@ -1,7 +1,5 @@
 package civica.nacional.iOS.modelo;
 
-import net.thucydides.core.annotations.Steps;
-
 public class ConsultaClientes {
     
 	private String tipoIdentificacion;

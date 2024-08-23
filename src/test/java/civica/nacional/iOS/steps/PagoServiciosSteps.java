@@ -1,8 +1,6 @@
 package civica.nacional.iOS.steps;
 
 import java.math.BigDecimal;
-
-import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.PagoServiciosPage;
 import civica.nacional.iOS.pageObjects.PasarPlataCivicaPage;
 import civica.nacional.iOS.utilidades.BaseUtil;
@@ -123,7 +121,6 @@ public class PagoServiciosSteps {
 		Utilidades.tomaEvidencia("Valido saldo final: " + newValor);
 		utilidadesTCS.validateTextNotEqualTo(BaseUtil.initialBalance, newValor);
         System.out.println("Verifiqué saldo final: "+ newValor);
-
 	}	
 	
 	@Step
@@ -137,7 +134,6 @@ public class PagoServiciosSteps {
 	public void validarSecciones() {
 		UtilidadesTCS.esperarElementVisibility("xpath", PagoServiciosPage.TXT_TIPO_PAGO);
 		Utilidades.tomaEvidencia("Validé secciones dentro de Hacer pagos");
-		
 		boolean estadoScan = utilidadesTCS.validateElementEnabled("xpath", PagoServiciosPage.SCAN_CODIGO);
 		utilidadesTCS.validateStatusElement(estadoScan);
 		boolean estadoCategorias = utilidadesTCS.validateElementEnabled("xpath", PagoServiciosPage.CATEGORIAS);
@@ -156,7 +152,6 @@ public class PagoServiciosSteps {
 		Utilidades.tomaEvidencia("Permisos de acceso de Cívica en el dispositivo móvil.");
 	//	POP UP DE PERMISOS QUE SE CIERRA SOLO DURANTE LA AUTOMATIZACIÓN EN iOS, POR ESO SE COMENTA EL PASO DEL CLIC.
 	//	utilidadesTCS.clicElement("xpath",PagoServiciosPage.CONFIGURAR_ACCESO_CAM);
-		
 	}
 
 }

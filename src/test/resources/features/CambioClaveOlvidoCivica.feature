@@ -3,7 +3,7 @@
 Feature: Cambio de clave por olvido
   Escenarios que permiten realizar el cambio de clave por olvido
 
-  @CP0018M
+  @CP0018M @Passed
   Scenario Outline: CP0018M_SYS_Realizar el cambio de clave para un usuario MET - CC.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban el subtipo del usuario <usuario> <subtipo>
@@ -16,10 +16,10 @@ Feature: Cambio de clave por olvido
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario    | newPass | correo                     | correoErroneo   | subtipo | 
-      | "CC"   | "10485962" | "1235"  | "pruebaslabcivi@gmail.com" | "xxx@gmail.com" | "MET"   | 
+      | tipoId | usuario  | newPass | correo                     | correoErroneo   | subtipo |
+      | "CC"   | "999837" | "2589"  | "pruebaslabcivi@gmail.com" | "xxx@gmail.com" | "MET"   |
 
-  @CP0019M
+  @CP0019M @Passed
   Scenario Outline: CP0019M_SYS_Realizar el cambio de clave para un usuario MET - CE.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban el subtipo del usuario <usuario> <subtipo>
@@ -33,9 +33,9 @@ Feature: Cambio de clave por olvido
 
     Examples: 
       | tipoId | usuario   | newPass | correo                     | subtipo |
-      | "CE"   | "9999845" | "2580"  | "pruebaslabcivi@gmail.com" | "MET"   |
+      | "CE"   | "9999814" | "2599"  | "pruebaslabcivi@gmail.com" | "MET"   |
 
-  @CP0020M
+  @CP0020M @Passed
   Scenario Outline: CP0020M_SYS_Realizar el cambio de clave para un usuario MET - TI.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban el subtipo del usuario <usuario> <subtipo>
@@ -44,14 +44,14 @@ Feature: Cambio de clave por olvido
     And verifico la version del aplicativo
     And ingreso al módulo 'Olvidaste tu clave' <tipoId> <usuario>
     And confirmo correo electrónico y creo clave <correo> <newPass>
-		Then verifico que me encuentro en el inicio de la app
+    Then verifico que me encuentro en el inicio de la app
     And Cerrar sesion desde el home
-    
+
     Examples: 
       | tipoId | usuario      | newPass | correo                     | subtipo |
-      | "TI"   | "1080406492" | "0853"  | "pruebaslabcivi@gmail.com" | "MET"   |
+      | "TI"   | "1080406492" | "2599"  | "pruebaslabcivi@gmail.com" | "MET"   |
 
-  @CP0021M
+  @CP0021M @Passed
   Scenario Outline: CP0021M_SYS_Realizar el cambio de clave para un usuario MIGRADO.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban el subtipo del usuario <usuario> <subtipo>
@@ -60,14 +60,14 @@ Feature: Cambio de clave por olvido
     And verifico la version del aplicativo
     And ingreso al módulo 'Olvidaste tu clave' <tipoId> <usuario>
     And confirmo correo electrónico y creo clave <correo> <newPass>
-		Then verifico que me encuentro en el inicio de la app
+    Then verifico que me encuentro en el inicio de la app
     And Cerrar sesion desde el home
-    
+
     Examples: 
       | tipoId | usuario     | newPass | correo                     | subtipo |
-      | "CC"   | "215333181" | "1342"  | "pruebaslabcivi@gmail.com" | "MET"   |
+      | "CC"   | "215333181" | "2499"  | "pruebaslabcivi@gmail.com" | "MET"   |
 
-  @CP0022M
+  @CP0022M @Passed
   Scenario Outline: CP0022M_SYS_Realizar el cambio de clave para un usuario RAP.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban el subtipo del usuario <usuario> <subtipo>
@@ -76,14 +76,14 @@ Feature: Cambio de clave por olvido
     And verifico la version del aplicativo
     And ingreso al módulo 'Olvidaste tu clave' <tipoId> <usuario>
     And confirmo correo electrónico y creo clave <correo> <newPass>
-	  Then verifico que me encuentro en el inicio de la app
+    Then verifico que me encuentro en el inicio de la app
     And Cerrar sesion desde el home
-    
+
     Examples: 
       | tipoId | usuario  | newPass | correo                     | subtipo |
-      | "CC"   | "999832" | "2588 " | "pruebaslabcivi@gmail.com" | "RAP"   |
+      | "CC"   | "999832" | "2597"  | "pruebaslabcivi@gmail.com" | "RAP"   |
 
-  @CP0023M
+  @CP0023M @Passed
   Scenario Outline: CP0023M_SYS_Realizar el cambio de clave para un usuario BMO.
     Given Obtener numero celular actual en redeban <usuario>
     And Validar en redeban el subtipo del usuario <usuario> <subtipo>
@@ -92,10 +92,9 @@ Feature: Cambio de clave por olvido
     And verifico la version del aplicativo
     And ingreso al módulo 'Olvidaste tu clave' <tipoId> <usuario>
     And confirmo correo electrónico y creo clave <correo> <newPass>
-		Then verifico que me encuentro en el inicio de la app
+    Then verifico que me encuentro en el inicio de la app
     And Cerrar sesion desde el home
-    
-    Examples: 
-      | tipoId | usuario  | newPass | correo                     | subtipo |
-      | "CC"   | "999824" | "1425 " | "pruebaslabcivi@gmail.com" | "BMO"   |
 
+    Examples: 
+      | tipoId | usuario    | newPass | correo                     | subtipo |
+      | "CC"   | "10305051" | "2597"  | "pruebaslabcivi@gmail.com" | "BMO"   |

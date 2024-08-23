@@ -4,7 +4,7 @@ Feature: Sacar Plata Civica
   Escenarios que permiten sacar plata desde Civica
 
   @CP0039M
-  Scenario Outline: CP0039M_SYS_Realizar un sacar plata exitoso con un usuario MET - CC a un monedero Civica
+  Scenario Outline: CP0039M_SYS_Realizar un sacar plata exitoso con un usuario MET - CC
     Given Obtener numero celular actual en redeban <usuario>
     And Consultar saldos en redeban
     And Validar en redeban subtipo <usuario> <subtipo> <numCelularUsuario>
@@ -32,7 +32,7 @@ Feature: Sacar Plata Civica
       | "CC"   | "999812" | "0852"     | "10000" | "3142045549"      | "MET"   |
 
   @CP0040M
-  Scenario Outline: CP0040M_SYS_Realizar un sacar plata exitoso con un usuario MET - CE a un monedero Civica
+  Scenario Outline: CP0040M_SYS_Realizar un sacar plata exitoso con un usuario MET - CE
     Given Obtener numero celular actual en redeban <usuario>
     And Consultar saldos en redeban
     And Validar en redeban subtipo <usuario> <subtipo> <numCelularUsuario>
@@ -60,7 +60,7 @@ Feature: Sacar Plata Civica
       | "CE"   | "9999814" | "1438"     | "10000" | "3142045551"      | "MET"   |
 
   @CP0041M
-  Scenario Outline: CP0041M_SYS_Realizar un sacar plata exitoso con un usuario MET - TI a un monedero Civica
+  Scenario Outline: CP0041M_SYS_Realizar un sacar plata exitoso con un usuario MET - TI
     Given Obtener numero celular actual en redeban <usuario>
     And Consultar saldos en redeban
     And Validar en redeban subtipo <usuario> <subtipo> <numCelularUsuario>

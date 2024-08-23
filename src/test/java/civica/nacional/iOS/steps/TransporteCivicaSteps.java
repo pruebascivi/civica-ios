@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import civica.nacional.iOS.definitions.Hooks;
 import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.TransporteCivicaPageObjects;
-import civica.nacional.iOS.utilidades.BaseUtil;
 import civica.nacional.iOS.utilidades.Utilidades;
 import civica.nacional.iOS.utilidades.UtilidadesTCS;
 import io.appium.java_client.AppiumDriver;
@@ -23,11 +22,9 @@ public class TransporteCivicaSteps {
 	TransporteCivicaPageObjects transporteCivPage;
 	private AppiumDriver<MobileElement> driver = Hooks.getDriver();
 
-	
 	@Step
 	public void enterBeneficiosViajevModule() {
 		try {
-			
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.MENU_HAMBURGUESA);
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.MENU_HAMBURGUESA);
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.USER_BTN_HM);
@@ -38,7 +35,6 @@ public class TransporteCivicaSteps {
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.BENEFICIOS_MODULE_TXT);
 			
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.MENU_HAMBURGUESA) : "El elemento !Aún no tienes beneficios activos¡ no es visible después de esperar";
 			Utilidades.tomaEvidencia("El elemento !Aún no tienes beneficios activos¡ no es visible después de esperar");
 			fail("No se pudo interactuar con el elemento o tiempo de espera superado" + e);
@@ -48,19 +44,17 @@ public class TransporteCivicaSteps {
 	@Step
 	public void validateMsn() {
 		try {
-			
 			boolean isElementVisible = utilidadesTCS.validateElementVisibilityException("xpath", TransporteCivicaPageObjects.TXT_WITHOUT_BENEFITS);
-
 			if (isElementVisible) {
 				String beneficiosViaje = utilidadesTCS.obtenerTexto("xpath",TransporteCivicaPageObjects.TXT_WITHOUT_BENEFITS);
 				UtilidadesTCS.validateTextContainsStringBoolean(beneficiosViaje, "Aún no tienes beneficios activos");
 				Utilidades.tomaEvidencia("Valido mensaje: " + beneficiosViaje);
+				
 			} else {
 				Utilidades.tomaEvidencia("El elemento !Aún no tienes beneficios activos¡ no es visible después de esperar");
 			}
 	
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.MENU_HAMBURGUESA) : "El elemento !Aún no tienes beneficios activos¡ no es visible después de esperar";
 			Utilidades.tomaEvidencia("El elemento !Aún no tienes beneficios activos¡ no es visible después de esperar");
 		    fail("El elemento !Aún no tienes beneficios activos¡ no es visible después de esperar" + e);
@@ -70,9 +64,8 @@ public class TransporteCivicaSteps {
 	@Step
 	public void validateFavoriteRoutes() {
 		try {
-			
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.BTN_RETURN_SINCE_BENEFICIOS_VIAJE);
-			WebDriverWait wait = new WebDriverWait(driver, 1); /*ESPERA DE 5 SEGUNDOS*/
+			WebDriverWait wait = new WebDriverWait(driver, 1);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(TransporteCivicaPageObjects.SALDOS_HOME)));
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.SALDOS_HOME);
 			MobileElement elemento = driver.findElement(By.xpath(TransporteCivicaPageObjects.HOME_W_ARE_U_GOING));
@@ -80,10 +73,8 @@ public class TransporteCivicaSteps {
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.HOME_W_ARE_U_GOING);
 			
 			boolean isElementVisible = utilidadesTCS.validateElementVisibilityException("xpath", TransporteCivicaPageObjects.EMPIEZA_A_VIAJAR);
-
 			if (isElementVisible) {
 				try {
-					
 					Utilidades.esperaMiliseg(500);
 					Utilidades.tomaEvidencia("Valido que el usuario no tiene trayectos guardados como favoritos y se muestra el mensaje 'Empieza a viajar con Cívica'");
 
@@ -91,7 +82,6 @@ public class TransporteCivicaSteps {
 					fail("No se pudo interactuar con el elemento" + e);
 				}
 			} else {
-				
 				MobileElement elementoTrayecto = driver.findElement(By.xpath(TransporteCivicaPageObjects.HOME_W_ARE_U_GOING));
 				Utilidades.tomaEvidencia("Valido que el módulo trayectos guardados está presente");
 				utilidadesTCS.moverElementoTouchHorizontal(elementoTrayecto, -250);
@@ -100,11 +90,9 @@ public class TransporteCivicaSteps {
 			}
 			
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.HOME_W_ARE_U_GOING) : "El elemento no es visible después de esperar";
 			Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
 		    fail("El elemento no es visible después de esperar" + e);
-		  
 		}  
 	}
 	
@@ -115,15 +103,12 @@ public class TransporteCivicaSteps {
 			boolean isAllJourneysVisible = utilidadesTCS.validateElementVisibilityException("xpath", TransporteCivicaPageObjects.TXT_TRIP_PROGRESS);
 
 			if (isAllJourneysVisible) {
-				
 			    System.out.println("Valido que el usuario está registrado en Cívica Pay y la app muestra el módulo de 'Viaje en curso'");
 				Utilidades.tomaEvidencia("Valido que el usuario está registrado en Cívica Pay y la app muestra el módulo de 'Viaje en curso'");
 
 			} else {
-				
 			    System.out.println("Valido que el usuario no está registrado en Cívica Pay y la app no muestra el módulo de 'Viaje en curso'");
 				Utilidades.tomaEvidencia("Valido que el usuario no está registrado en Cívica Pay y la app no muestra el módulo de 'Viaje en curso'");
-			
 			}
 			
 		} catch (Exception e) {
@@ -168,7 +153,7 @@ public class TransporteCivicaSteps {
 			boolean isAllJourneysVisible = utilidadesTCS.validateElementVisibilityException("xpath", TransporteCivicaPageObjects.TRAYECTO_PRESENT);
 
 			if (isAllJourneysVisible) {
-				WebDriverWait wait = new WebDriverWait(driver, 1); /*ESPERA DE 5 SEGUNDOS*/
+				WebDriverWait wait = new WebDriverWait(driver, 1);
 	            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(TransporteCivicaPageObjects.SALDOS_HOME)));
 				UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.SALDOS_HOME);
 				Utilidades.esperaMiliseg(500);
@@ -189,21 +174,21 @@ public class TransporteCivicaSteps {
 	@Step
 	public void validateNearPlaces() {
 		try {
-				
-				MobileElement elemento = driver.findElement(By.xpath(TransporteCivicaPageObjects.HOME_W_ARE_U_GOING));
-				utilidadesTCS.moverElementoTouch(elemento, -350);
-				Utilidades.esperaMiliseg(1000);
-				utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.MODULE_NEAR_PLACES);
-				MobileElement lugaresCercanos1 = driver.findElement(By.xpath(TransporteCivicaPageObjects.LC_COMERCIO));
-				Utilidades.esperaMiliseg(500);
-				Utilidades.tomaEvidencia("Valido que las opciones de 'Lugares cercanos' estén presentes 1.");
-				utilidadesTCS.moverElementoTouchHorizontal(lugaresCercanos1, -250);
-				MobileElement lugaresCercanos2 = driver.findElement(By.xpath(TransporteCivicaPageObjects.LC_FINANCIERO));
-				Utilidades.esperaMiliseg(500);
-				Utilidades.tomaEvidencia("Valido que las opciones de 'Lugares cercanos' estén presentes 2.");
-				utilidadesTCS.moverElementoTouchHorizontal(lugaresCercanos2, -350);
-				Utilidades.esperaMiliseg(500);
-				Utilidades.tomaEvidencia("Valido que las opciones de 'Lugares cercanos' estén presentes 3.");
+			Utilidades.esperaMiliseg(2000);
+			MobileElement elemento = driver.findElement(By.xpath(TransporteCivicaPageObjects.HOME_W_ARE_U_GOING));
+			utilidadesTCS.moverElementoTouch(elemento, -350);
+			Utilidades.esperaMiliseg(1000);
+			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.MODULE_NEAR_PLACES);
+			MobileElement lugaresCercanos1 = driver.findElement(By.xpath(TransporteCivicaPageObjects.LC_COMERCIO));
+			Utilidades.esperaMiliseg(200);
+			Utilidades.tomaEvidencia("Valido que las opciones de 'Lugares cercanos' estén presentes 1.");
+			utilidadesTCS.moverElementoTouchHorizontal(lugaresCercanos1, -250);
+			MobileElement lugaresCercanos2 = driver.findElement(By.xpath(TransporteCivicaPageObjects.LC_FINANCIERO));
+			Utilidades.esperaMiliseg(200);
+			Utilidades.tomaEvidencia("Valido que las opciones de 'Lugares cercanos' estén presentes 2.");
+			utilidadesTCS.moverElementoTouchHorizontal(lugaresCercanos2, -350);
+			Utilidades.esperaMiliseg(500);
+			Utilidades.tomaEvidencia("Valido que las opciones de 'Lugares cercanos' estén presentes 3.");
 
 		} catch (Exception e) {
 			
@@ -218,9 +203,11 @@ public class TransporteCivicaSteps {
 		try {
 			
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.HOME_W_ARE_U_GOING);
-			Utilidades.esperaMiliseg(1000);
+			Utilidades.esperaMiliseg(5000);
 			boolean aDondeVas = utilidadesTCS.validateElementEnabled("xpath", TransporteCivicaPageObjects.FIELD_W_ARE_U_GOING);
 			utilidadesTCS.validateStatusElement(aDondeVas);
+			Utilidades.esperaMiliseg(2000);
+			utilidadesTCS.esperarElementVisibilityBoolean("xpath", TransporteCivicaPageObjects.JOURNAYS_SAVES_INTO_W_ARE_U_GOING);
 			boolean trayectosGuardados = utilidadesTCS.validateElementEnabled("xpath", TransporteCivicaPageObjects.JOURNAYS_SAVES_INTO_W_ARE_U_GOING);
 			utilidadesTCS.validateStatusElement(trayectosGuardados);
 			Utilidades.tomaEvidencia("Valido campos de la sección 'A dónde vas?'");
@@ -255,7 +242,8 @@ public class TransporteCivicaSteps {
 	@Step
 	public void validatePresenceSelectLocation() {
 		try {
-			
+			Utilidades.esperaMiliseg(5000);	
+	        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.SALDOS_HOME);
 			Utilidades.esperaMiliseg(1000);	
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.HOME_W_ARE_U_GOING);
@@ -265,15 +253,14 @@ public class TransporteCivicaSteps {
 			utilidadesTCS.moverElementoMapaCoordenadas(startPoint, -150); 
 			Utilidades.esperaMiliseg(1000);
 		    Utilidades.tomaEvidencia("Valido que al mover el mapa se muestra la opción de seleccionar ubicación y se minimizan los trayectos guardados");		
-//		    boolean selectLoctation = utilidadesTCS.validateElementEnabled("xpath", TransporteCivicaPageObjects.BTN_SELECT_LOCATION);
-//			utilidadesTCS.validateStatusElement(selectLoctation);
+	    	//boolean selectLoctation = utilidadesTCS.validateElementEnabled("xpath", TransporteCivicaPageObjects.BTN_SELECT_LOCATION);
+		    //utilidadesTCS.validateStatusElement(selectLoctation);
 			utilidadesTCS.clickByCoordinates(197, 754);
 			Utilidades.esperaMiliseg(2000);
 		    Utilidades.tomaEvidencia("Valido que al accionar la pestaña oculta, muestra de nuevo los trayectos guardados");
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.BTN_RETURN_SINCE_BENEFICIOS_VIAJE);
 
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.MAP_FROMLOCATION) : "El elemento de ubicación en el mapa no es visible después de esperar";
 		    Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
 		}    
@@ -282,14 +269,12 @@ public class TransporteCivicaSteps {
 	@Step
 	public void enterIntoJourneysSaves() {
 		try {
-			
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.SALDOS_HOME);
 			Utilidades.esperaMiliseg(1500);
 			MobileElement elemento = driver.findElement(By.xpath(TransporteCivicaPageObjects.HOME_W_ARE_U_GOING));
 			utilidadesTCS.moverElementoTouch(elemento, -200);
 
 			boolean isAllJourneysVisible = utilidadesTCS.validateElementVisibilityException("xpath", TransporteCivicaPageObjects.TRAYECTO_PRESENT);
-
 			if (isAllJourneysVisible) {
 				
 				utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.TRAYECTO_PRESENT);
@@ -298,13 +283,11 @@ public class TransporteCivicaSteps {
 				utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects. BTN_RETURN_SINCE_BENEFICIOS_VIAJE );
 				
 			} else {
-				
 			    System.out.println("No se encontraron trayectos guardados");
 			    Utilidades.tomaEvidencia("No se encontraron trayectos guardados");
 			}
 
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.SALDOS_HOME) : "El elemento no es visible después de esperar";
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.START_JOURNERY) : "El elemento no es visible después de esperar";
 		    Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
@@ -314,7 +297,6 @@ public class TransporteCivicaSteps {
 	@Step
 	public void validateOptionsIntoWhereAreUGoing() {
 		try {
-			
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.SALDOS_HOME);
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.HOME_W_ARE_U_GOING);
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.FIELD_INTO_W_ARE_U_GOING);
@@ -333,7 +315,6 @@ public class TransporteCivicaSteps {
 		    Utilidades.tomaEvidencia("Valido que la app permite diligenciar una ubicación diferente y se puede seleccionar en el mapa");
 		    
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.FIELD_W_ARE_U_GOING) : "El elemento no es visible después de esperar";
 		    Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
 		}    
@@ -344,36 +325,31 @@ public class TransporteCivicaSteps {
 		try {
 			Utilidades.esperaMiliseg(500);
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.CAMPO_INGRESA_DIRECCION);
-//			utilidadesTCS.ingresarUsuario("xpath", TransporteCivicaPageObjects.CURRENT_LOCATION, direccionActual);
-//			utilidadesTCS.clickByCoordinates(130, 186);
+			//utilidadesTCS.ingresarUsuario("xpath", TransporteCivicaPageObjects.CURRENT_LOCATION, direccionActual);
+			//utilidadesTCS.clickByCoordinates(130, 186);
 			utilidadesTCS.clickByCoordinates(130, 317);
 			Utilidades.esperaMiliseg(500);
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.FIELD_A_DONDE_VAS);
-//			utilidadesTCS.ingresarUsuario("xpath", TransporteCivicaPageObjects.FIELD_W_ARE_U_GOING, destino);
-//			utilidadesTCS.clickByCoordinates(130, 240);
+			//utilidadesTCS.ingresarUsuario("xpath", TransporteCivicaPageObjects.FIELD_W_ARE_U_GOING, destino);
+			//utilidadesTCS.clickByCoordinates(130, 240);
 			utilidadesTCS.clickByCoordinates(130, 378);
 		    Utilidades.tomaEvidencia("Ingreso dirección actual y destino");
 		    
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.CURRENT_LOCATION) : "El elemento no es visible después de esperar";
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.FIELD_W_ARE_U_GOING) : "El elemento no es visible después de esperar";
 		    Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
-			
 		}
-		
 	}
 	
 	@Step
 	public void inputDate(String date) {
 		try {
-			
 			utilidadesTCS.clickByCoordinates(110, 275);
 			Utilidades.esperaMiliseg(500);
 	        utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.DATE_BIRTH_INPUT_FIELD);
 	        IOSElement pickerWheelElementDay = (IOSElement) driver.findElementByXPath(TransporteCivicaPageObjects.DAY_FIELD_TO_SCROLL);
 	        IOSElement pickerWheelElementMonth = (IOSElement) driver.findElementByXPath(TransporteCivicaPageObjects.DAY_FIELD_TO_SCROLL);
-
 	        utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.DAY_FIELD_TO_SCROLL);
 	        UtilidadesTCS.setInputValue(pickerWheelElementDay);
 	        utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.DATE_BIRTH_INPUT_FIELD);
@@ -385,7 +361,6 @@ public class TransporteCivicaSteps {
 	        utilidadesTCS.ingresarUsuario("xpath", TransporteCivicaPageObjects.DATE_BIRTH_INPUT_FIELD, date);
 
 		} catch (Exception e) {
-			
 		    fail("El elemento no es visible después de esperar" + e);
 		    Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
 		}	
@@ -394,7 +369,6 @@ public class TransporteCivicaSteps {
 	@Step
 	public void inputDepertureTime(String hora, String minuto, String jornada) {
 		try {
-		    
 	        utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.FIELD_DEPERTURE);
 	        IOSElement pickerWheelElementHour = (IOSElement) driver.findElementByXPath(TransporteCivicaPageObjects.FIELD_HOUR);
 	        UtilidadesTCS.setInputValue(pickerWheelElementHour);
@@ -409,7 +383,6 @@ public class TransporteCivicaSteps {
 		    Utilidades.tomaEvidencia("Selecciono la fecha y horario de salida");
 		    
 		} catch (Exception e) {
-	
 			Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
 			fail("No se pudo interactuar con el elemento" + e);
 		}	
@@ -418,7 +391,6 @@ public class TransporteCivicaSteps {
 	@Step
 	public void validateSuggestedRoutes() {
 		try {
-		    
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.BTN_BACK_FROM_MORE_SERVICES);
 			Utilidades.esperaMiliseg(1000);
 		    Utilidades.tomaEvidencia("Valido que al regresar de más servicios, la aplicación muestra trayectos sugeridos");
@@ -431,31 +403,25 @@ public class TransporteCivicaSteps {
 			Utilidades.esperaMiliseg(800);
 		    
 		} catch (Exception e) {
-			
 		    assert utilidadesTCS.validateElementVisibility("xpath", TransporteCivicaPageObjects.SUGGESTED_ROUTES) : "El elemento no es visible después de esperar";
 		    Utilidades.tomaEvidencia("El elemento no es visible después de esperar");
-			
 		}	
 	}
 	
 	@Step
 	public void validateBtnQRPublicHome() {
-		
 		try {
 			boolean isElementLogoutVisible = utilidadesTCS.validateElementVisibilityException("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
 
 			if (isElementLogoutVisible) {
-				
 				try {
 					utilidadesTCS.clicElement("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
 				} catch (Exception e) {
 					fail("No se pudo interactuar con el elemento" + e);
 				}
 			} else {
-				
 				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_CERRAR_MH);
 			}
-			
 			Utilidades.esperaMiliseg(1000);
 			UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.TRAVEL_WITH_QR);
 			utilidadesTCS.clicElement("xpath", TransporteCivicaPageObjects.HOME_W_ARE_U_GOING);

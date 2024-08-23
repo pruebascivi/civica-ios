@@ -1,15 +1,12 @@
 package civica.nacional.iOS.steps;
 
 import static org.junit.Assert.fail;
-
 import java.util.Date;
-
 import civica.nacional.iOS.pageObjects.CambioClaveOlvidoPage;
 import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.RegistroCivicaPage;
 import civica.nacional.iOS.utilidades.BaseUtil;
 import civica.nacional.iOS.utilidades.Credenciales;
-import civica.nacional.iOS.utilidades.Evidencias;
 import civica.nacional.iOS.utilidades.TesseractOCR;
 import civica.nacional.iOS.utilidades.Utilidades;
 import civica.nacional.iOS.utilidades.UtilidadesTCS;
@@ -38,16 +35,16 @@ public class CambioClaveOlvidoSteps {
 			}
 		} 
 		try {
-		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.FORGOT_PASS_BTN);
-		Utilidades.esperaMiliseg(500);
-		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.TYPE_ID_BTN);
-		utilidadesTCS.scrollToElement(CambioClaveOlvidoPage.SELECT_TIPO_ID, tipoID);
-		Utilidades.esperaMiliseg(500);
-		utilidadesTCS.writeElement("xpath",CambioClaveOlvidoPage.DOCUMENT_NUM_FIELD, usuario);
-		Utilidades.esperaMiliseg(500);
-		Utilidades.tomaEvidencia("Selecciono tipo de documento e ingresé número");
-		utilidadesTCS.clickByCoordinates(190, 490);
-		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CONTINUE_BTN);
+			utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.FORGOT_PASS_BTN);
+			Utilidades.esperaMiliseg(500);
+			utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.TYPE_ID_BTN);
+			utilidadesTCS.scrollToElement(CambioClaveOlvidoPage.SELECT_TIPO_ID, tipoID);
+			Utilidades.esperaMiliseg(500);
+			utilidadesTCS.writeElement("xpath",CambioClaveOlvidoPage.DOCUMENT_NUM_FIELD, usuario);
+			Utilidades.esperaMiliseg(500);
+			Utilidades.tomaEvidencia("Selecciono tipo de documento e ingresé número");
+			utilidadesTCS.clickByCoordinates(190, 490);
+			utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CONTINUE_BTN);
 		} catch (Exception e) {
 			fail("No se pudo interactuar con el elemento" + e);
 		}
@@ -92,7 +89,6 @@ public class CambioClaveOlvidoSteps {
 
          if (isElementVisible) {
          // Realizar acciones si el elemento es visible
-            utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
             Utilidades.esperaMiliseg(6000);
             Date fechaActual = new Date();
             System.out.println("Fecha actual: " + fechaActual);
@@ -101,6 +97,7 @@ public class CambioClaveOlvidoSteps {
             String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
             System.out.println("Código de activación: " + codigoActivacion);
             String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
+            utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
             utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
             utilidadesTCS.clicElement("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN);
             Utilidades.esperaMiliseg(1000);
@@ -156,9 +153,12 @@ public class CambioClaveOlvidoSteps {
 				//utilidadesTCS.clicElement("xpath",CambioClaveCivicaPage.PASS_CHANGE_CONFIRM_BTN);
 		    	UtilidadesTCS.esperarElementVisibility("xpath", CambioClaveOlvidoPage.END_BTN);
 				Utilidades.tomaEvidencia("Validé el cambio exitoso de la clave");
-				for(int i=0; i<=2; i++) {
-					utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.END_BTN);
-					}
+				utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.END_BTN);
+				
+				//Se comenta porque solo hay un END_BTN 
+				//for(int i=0; i<=2; i++) {
+				//	utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.END_BTN);
+				//}
 			    }
 		  }
 	}
@@ -179,6 +179,7 @@ public class CambioClaveOlvidoSteps {
 		Utilidades.tomaEvidencia("Ingresé correo registrado");
 		utilidadesTCS.clickByCoordinates(190, 490);
 		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CONTINUE_EMAIL_BTN);
+        Utilidades.esperaMiliseg(9000);
 		utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
         Utilidades.esperaMiliseg(6000);
         Date fechaActual = new Date();

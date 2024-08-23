@@ -30,7 +30,7 @@ Feature: Transporte Cívica
 
     Examples: 
       | tipoId | usuario  | contrasena | direccionActual | destino      | date         | jornada | hora | minuto |
-      | "CC"   | "999837" | "2578"     | "Niquia"        | "San Javier" | "05/09/2024" | "am"    | "6"  | "20"   |
+      | "CC"   | "999837" | "1234"     | "Niquia"        | "San Javier" | "05/09/2024" | "am"    | "6"  | "20"   |
 
   @CP0091M
   Scenario Outline: CP0091M_SYS_Validaciones de funcionalidades en el módulo Transporte Cívica desde Home público.
@@ -40,4 +40,4 @@ Feature: Transporte Cívica
 
     Examples: 
       | tipoId | usuario  | contrasena |
-      | "CC"   | "999837" | "2578"     |
+      | "CC"   | "999837" | "1234"     |

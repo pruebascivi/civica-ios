@@ -1,11 +1,8 @@
 package civica.nacional.iOS.steps;
 
 import static org.junit.Assert.fail;
-
 import java.util.Date;
-
 import civica.nacional.iOS.pageObjects.LoginCivicaPage;
-import civica.nacional.iOS.pageObjects.PasarPlataCivicaPage;
 import civica.nacional.iOS.pageObjects.RegistroCivicaPage;
 import civica.nacional.iOS.utilidades.BaseUtil;
 import civica.nacional.iOS.utilidades.Credenciales;
@@ -98,8 +95,9 @@ public class RegistroCivicaSteps {
 	        utilidadesTCS.clicElement("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
 			utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
 		}
+        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 		utilidadesTCS.clicElement("xpath",RegistroCivicaPage.HM_REGISTRATION_BTN);
-		Utilidades.esperaMiliseg(1000);
+		Utilidades.esperaMiliseg(3000);
 		utilidadesTCS.clicElement("xpath",RegistroCivicaPage.DOCUMENT_TYPE_BTN);
 		utilidadesTCS.scrollToElement(RegistroCivicaPage.DROPDOWN_DOCUMENT_TYPE_CC, tipoID);
 		Utilidades.tomaEvidencia("Selecciono tipo de documento");
@@ -107,7 +105,8 @@ public class RegistroCivicaSteps {
 		utilidadesTCS.writeElement("xpath",RegistroCivicaPage.DOCUMENTO_NUM_INPUT_FIELD, usuario);
 		Utilidades.tomaEvidencia("Ingreso número de documento");
 		utilidadesTCS.clicElement("xpath", RegistroCivicaPage.CONTINUE_BTN);
-		Utilidades.esperaMiliseg(1000);
+		Utilidades.esperaMiliseg(3000);
+        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 		utilidadesTCS.clicElement("xpath",RegistroCivicaPage.DATE_BIRTH_INPUT_FIELD);
 		utilidadesTCS.clicElement("xpath",RegistroCivicaPage.DAY_FIELD_TO_SCROLL);
         utilidadesTCS.scrollToElementDay(RegistroCivicaPage.DAY_FIELD_TO_SCROLL, dia);
@@ -118,9 +117,9 @@ public class RegistroCivicaSteps {
 		utilidadesTCS.clicElement("xpath",RegistroCivicaPage.YEAR_FIELD_TO_SCROLL);
 		utilidadesTCS.scrollToElementYear(RegistroCivicaPage.YEAR_FIELD_TO_SCROLL, anio);
 		utilidadesTCS.clickByCoordinates(360,360);
-		Utilidades.esperaMiliseg(1000);
+		Utilidades.esperaMiliseg(3000);
 		utilidadesTCS.clicElement("xpath",RegistroCivicaPage.CONTINUE2_BTN);
-		Utilidades.esperaMiliseg(1000);
+		Utilidades.esperaMiliseg(3000);
 		utilidadesTCS.validateElementVisibility("xpath", RegistroCivicaPage.VALIDATE_REGISTER_TXT);
 		Utilidades.tomaEvidencia("Valido mensaje 'Esta es tu nueva cuenta'");
 	}
@@ -250,7 +249,7 @@ public class RegistroCivicaSteps {
 			Utilidades.esperaMiliseg(500);
 			Utilidades.tomaEvidencia("Acepté términos y condiciones.");
 			utilidadesTCS.clicElement("xpath",RegistroCivicaPage.CONTINUE_BNT_SINCE_TERMS);
-			Utilidades.esperaMiliseg(1000);
+			Utilidades.esperaMiliseg(3000);
 			utilidadesTCS.clicElement("xpath",RegistroCivicaPage.CONFIRM_CEL_NUM_FIELD);
 			utilidadesTCS.writeElement("xpath",RegistroCivicaPage.CONFIRM_CEL_NUM_FIELD, numCelular);
 			utilidadesTCS.clickByCoordinates(222,222);
@@ -270,11 +269,10 @@ public class RegistroCivicaSteps {
 	        utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
 			utilidadesTCS.clickByCoordinates(199,199);
 			utilidadesTCS.clicElement("xpath", RegistroCivicaPage.ACCEPT_CODE_CEL_BTN);
-			Utilidades.esperaMiliseg(1000);
-			Utilidades.tomaEvidencia("Verifiqué que el celular fue confirmado.");
-			Utilidades.esperaMiliseg(1000);
+			Utilidades.esperaMiliseg(1050);
 			Utilidades.tomaEvidencia("Verifico último paso para el registro.");
-
+			Utilidades.esperaMiliseg(5000);
+	        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 			boolean isElementLoginVisible = utilidadesTCS.validateElementVisibilityException("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_HOME);
 
 			if (isElementLoginVisible) {
@@ -283,6 +281,7 @@ public class RegistroCivicaSteps {
 		        assert false : "¡Ups! Lo sentimos. Tu registro no pudo continuar. Para más información ingresa al botón ¿Necesitas ayuda?";
 				
 			} else {
+				Utilidades.tomaEvidencia("Registro exitoso.");
 				System.out.println("Registro exitoso.");
 			}
 		} catch (Exception e) {
@@ -325,7 +324,6 @@ public class RegistroCivicaSteps {
 		utilidadesTCS.clicElement("xpath", RegistroCivicaPage.ACCEPT_CODE_CEL_BTN);
 		Utilidades.esperaMiliseg(2000);
 		Utilidades.tomaEvidencia("Validar el mensaje '¡Ups! Lo sentimos. Cuentas con registro en el App Daviplata activo con otro número.'");
-
 	}
 	
 	@Step

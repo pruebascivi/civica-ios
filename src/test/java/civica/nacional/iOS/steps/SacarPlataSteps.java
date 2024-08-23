@@ -1,15 +1,11 @@
 package civica.nacional.iOS.steps;
 
 import static org.junit.Assert.fail;
-
 import java.math.BigDecimal;
-
-import civica.nacional.iOS.pageObjects.PasarPlataCivicaPage;
 import civica.nacional.iOS.pageObjects.SacarPlataPageObjects;
 import civica.nacional.iOS.utilidades.BaseUtil;
 import civica.nacional.iOS.utilidades.Utilidades;
 import civica.nacional.iOS.utilidades.UtilidadesTCS;
-import net.thucydides.core.annotations.Step;
 
 public class SacarPlataSteps {
 
@@ -17,13 +13,11 @@ public class SacarPlataSteps {
 	SacarPlataPageObjects sacarPlataPage;
 	Utilidades utilidades;
 	
-
 	public void enterToSacarPlata() {
 		utilidadesTCS.clicElement("xpath", SacarPlataPageObjects.SACAR_PLATA_MODULE);
 		Utilidades.esperaMiliseg(1000);
 		Utilidades.tomaEvidencia("Ingresé al modulo Sacar Plata");
 	}
-	
 
 	public void enterAmountMoney(String monto, String contrasena) {
 		
@@ -75,12 +69,10 @@ public class SacarPlataSteps {
 			System.out.println("Validé código para retiro de dinero en cajero: " + BaseUtil.newAut);
 			BaseUtil.tipoTransaccion = "SACAR PLATA - SOLICITUD OTP AP";
 			utilidadesTCS.clicElement("xpath", SacarPlataPageObjects.END_BTN);
-			
 		}
 	}
 	
 	public void enterAmountMoneyWithError(String montoConUno, String montoConDosOConCuatro, String montoConTres, String montoExitoso, String contrasena, String contrasenaErronea) {
-	
 			utilidadesTCS.writeElement("xpath", SacarPlataPageObjects.AMOUNT_MONEY_FIELD, montoConUno);
 			utilidadesTCS.clickByCoordinates(190, 460);
 			Utilidades.esperaMiliseg(500);
@@ -148,6 +140,5 @@ public class SacarPlataSteps {
 			Utilidades.esperaMiliseg(500);
 			// BOTÓN REGRESO DESDE MÓDULO SACAR PLATA HACIA EL HOME.
 		    utilidadesTCS.clicElement("xpath", SacarPlataPageObjects.BACK_BTN_DESDE_SACARPLATA);
-  
 		}	
 }
