@@ -12,13 +12,13 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 features = "src/test/resources/features" 
 ,glue = "civica.nacional.iOS.definitions"
-,tags = "@CP00472M"
+,tags = "@CP0015M"
 ,monochrome = true
 ,snippets = SnippetType.CAMELCASE	
 )
 public class MainRunner {
 	@BeforeSuite
 	public static void test() throws InvalidFormatException, IOException {
-		DataToFeature.overrideFeatureFiles("./src/test/resources/features");	
+		DataToFeature.overrideFeatureFiles("./src/test/resources/features", "./src/test/resources/data/TextData.xlsx");	
 	}
 }

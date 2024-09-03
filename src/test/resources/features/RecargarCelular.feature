@@ -61,7 +61,7 @@ Feature: Recargar Celular Cívica
 
     Examples: 
       | tipoId | usuario   | contrasena | numCelular   | valor  | numCelularUsuario | subtipo |
-      | "CE"   | "9999814" | "3698"     | "3142045530" | "1000" | "3142045551"      | "MET"   |
+      | "CE"   | "999829"  | "2580"     | "3142045530" | "1000" | "3142045551"      | "MET"   |
 
   @CP0045M @incluido
   Scenario Outline: CP0045M_SYS_Realizar una recarga de celular con un usuario TI.
@@ -90,7 +90,7 @@ Feature: Recargar Celular Cívica
 
     Examples: 
       | tipoId | usuario      | contrasena | numCelular   | valor  | numCelularUsuario | subtipo |
-      | "TI"   | "1080406492" | "0852"     | "3142045530" | "1000" | "3142045577"      | "MET"   |
+      | "TI"   | "1080406492" | "1234"     | "3142045530" | "1000" | "3142045577"      | "MET"   |
 
   @CP004601M
   Scenario Outline: CP004601M_SYS_Validaciones en monto mayor al permitido, error al ingresar clave errónea y saldo insuficiente.
@@ -119,4 +119,4 @@ Feature: Recargar Celular Cívica
 
     Examples: 
       | tipoId | usuario  | contrasena | numCelularDestino | valor  | numCelularUsuario | subtipo | badValue |
-      | "CC"   | "999842" | "4321"     | "3142045595"      | "1000" | "3142045595"      | "BMO"   | "100002" |
+      | "CC"   | "999842" | "1111"     | "3142045595"      | "1000" | "3142045595"      | "BMO"   | "100002" |

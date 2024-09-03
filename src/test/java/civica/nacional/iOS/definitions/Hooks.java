@@ -33,8 +33,7 @@ public class Hooks {
 		Runtime.getRuntime().gc();
 		System.gc();
 		Evidencias.numeroScreen = 1;
-		int valueWait = Integer.parseInt(Credenciales.parametrosGenerales().getProperty("wait"));
-		System.out.println(valueWait);
+		//int valueWait = Integer.parseInt(Credenciales.parametrosGenerales().getProperty("wait"));
 		Hooks.scenario = scenario;
 		cd = new CustomAppiumDriver();
 		BaseUtil.driver = cd.getCustomDriver();
@@ -42,9 +41,9 @@ public class Hooks {
 		BaseUtil.wait = new WebDriverWait(BaseUtil.driver, 10);
 		waitAll = BaseUtil.wait;
 		System.setProperty("RutaEvidencias", System.getProperty("user.dir") + File.separator + "Evidencias"
-				+ File.separator + scenario.getName().split("_")[0]);
+				+ File.separator + scenario.getName());
 		new File(System.getProperty("user.dir") + File.separator + "Evidencias" + File.separator
-				+ scenario.getName().split("_")[0]).mkdirs();
+				+ scenario.getName()).mkdirs();
 		System.out.println(System.getProperty("RutaEvidencias"));
 		Evidencias.eleminarImagenes(System.getProperty("RutaEvidencias"));
 		crono.iniciarCronometro();

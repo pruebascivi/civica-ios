@@ -71,8 +71,8 @@ Feature: Pasar Plata
     And Validar afectacion de saldos civica
 
     Examples: 
-      | tipoId | usuario   | contrasena | numCelularUsuario | numCelularDestino | valor | subtipo | usuarioDestino | subtipoDestino |
-      | "CE"   | "9999814" | "4568"     | "3142045551"      | "3142045591"      | "100" | "MET"   | "9999814"      | "MET"        |
+      | tipoId | usuario  | contrasena | numCelularUsuario | numCelularDestino | valor | subtipo | usuarioDestino | subtipoDestino |
+      | "CE"   | "999829" | "2580"      | "3142045551"      | "3142045591"      | "100" | "MET"   | "9999814"      | "MET"        |
 
   @CP0032M
   Scenario Outline: CP0032M_SYS_Realizar un pasar plata exitoso con un usuario COMUN - TI a un monedero MET Civica.
@@ -107,7 +107,7 @@ Feature: Pasar Plata
 
     Examples: 
       | tipoId | usuario      | contrasena | numCelularUsuario | numCelularDestino | valor | subtipo | usuarioDestino | subtipoDestino |
-      | "TI"   | "1080406492" | "4568"     | "3142045552"      | "3142045591"      | "100" | "MET"   | "9999814"      | "MET"          |
+      | "TI"   | "1080406492" | "1234"     | "3142045552"      | "3142045591"      | "100" | "MET"   | "9999814"      | "MET"          |
 
   @CP0033M
   Scenario Outline: CP0033M_SYS_Realizar un pasar plata exitoso con un usuario Migrado a un monedero MET Civica.
@@ -212,7 +212,7 @@ Feature: Pasar Plata
 
     Examples: 
       | tipoId | usuario  | contrasena | numCelularUsuario | numCelularDestino | valor | subtipo | usuarioDestino | subtipoDestino |
-      | "CC"   | "999842" | "4568"     | "3142045595"      | "3142045591"      | "100" | "BMO"   | "9999814"      | "MET"          |
+      | "CC"   | "999842" | "1111"     | "3142045595"      | "3142045591"      | "100" | "BMO"   | "9999814"      | "MET"          |
 
   @CP0036M
   Scenario Outline: CP0036M_SYS_Realizar un pasar plata exitoso con un usuario MET a un usuario OnHold.
@@ -326,5 +326,5 @@ Feature: Pasar Plata
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario   | contrasena | numCelularDestino | valor | subtipo | valorErroneo |
-      | "CE"   | "9999814" | "4568"     | "3142045591"      | "100" | "MET"   | "1000000"    |
+      | tipoId | usuario  | contrasena | numCelularDestino | valor | subtipo | valorErroneo |
+      | "CE"   | "999829" | "2580"     | "3142045591"      | "100" | "MET"   | "1000000"    |

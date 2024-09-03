@@ -3,6 +3,7 @@ package civica.nacional.iOS.pageObjects;
 public class LoginCivicaPage {
 
 	public static final String MENU_HAMBURGUESA = "//XCUIElementTypeButton[@label='ic menu 2']";
+	public static final String ACTUALIZAR_SALDO = "//XCUIElementTypeStaticText[@name='Actualizar saldo']";
 	public static final String BTN_INGRESO_REGISTRO_HOME = "//XCUIElementTypeButton[@name='Ingresa o regístrate']";
 	public static final String BTN_INGRESO_REGISTRO_MH = "//XCUIElementTypeOther[@name='Ingresa o regístrate']";
 	public static final String BTN_LOGIN_HOME = "//XCUIElementTypeButton[@name='Ingresa o regístrate']";
@@ -42,4 +43,7 @@ public class LoginCivicaPage {
 	public static final String DATOS_USUARIO = "//XCUIElementTypeStaticText[@name='Datos de usuario']";
 	public static final String DATOS_PERSONALES = "//XCUIElementTypeStaticText[@name='Datos personales']";
 	public static final String PROGRESS_BAR = "//XCUIElementTypeActivityIndicator[@name='In progress'] | //XCUIElementTypeActivityIndicator[@name='In progress'] | //XCUIElementTypeActivityIndicator[@name='In progress'] | //*[contains(@name,'In progress')] | //XCUIElementTypeImage[@name='loader'] | //XCUIElementTypeActivityIndicator[contains(@name, 'In progress')] | //XCUIElementTypeImage[@name='loader'] | //XCUIElementTypeWindow/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeImage[3]";
+	public static final String CEL_NUMBER_USER = "//XCUIElementTypeStaticText[@name='Número celular']/following-sibling::XCUIElementTypeStaticText";
+	public static final String ID_NUMBER_USER = "//XCUIElementTypeStaticText[@name='Tipo de documento']/following-sibling::XCUIElementTypeStaticText";
+
 }

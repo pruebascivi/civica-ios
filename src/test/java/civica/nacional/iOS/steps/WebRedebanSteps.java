@@ -626,6 +626,7 @@ public class WebRedebanSteps {
 			WebRedebanPageObjects.clicBtnVistaGeneral();
 			String[] subtibo = WebRedebanPageObjects.returnLblSubTipo().split(" ");
 			valorSubtipo = subtibo[0];
+			BaseUtil.subTipo = valorSubtipo;
 			assertThat(valorSubtipo, equalTo(subtipo));
 			System.out.println("El Sub Tipo del cliente es : " + valorSubtipo + " y el subtipo esperado es " + subtipo);
 			Utilidades.tomaEvidenciaPantallaWeb("web-Guardo información cliente");

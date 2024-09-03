@@ -42,6 +42,11 @@ public class LoginCivicaDefinitions {
 	public void seleccionoLaOpcionIngresar() {
 		loginRobustoSteps.clickOnEnterOption();
 	}
+	
+	@When("^selecciono ingresar opcion erronea$")
+	public void seleccionoIngresarOpcionErronea() {
+		loginRobustoSteps.clickOnEnterOptionBad();
+	}
 
 	@Then("^verifico que me encuentro en el inicio de la app$")
 	public void verificoQueMeEncuentroEnElInicioDeLaApp() {
@@ -62,6 +67,18 @@ public class LoginCivicaDefinitions {
 	public void validarElMensajeDeRechazoCuandoSeIngresaMalLaClaveDeIngreso(String tipoID, String usuario, String badPass, String contrasenia) throws Exception {
 	    BaseUtil.usuario = usuario;
 		loginRobustoSteps.checkWrongPassword(tipoID, usuario, badPass, contrasenia);
+	}
+	
+	@Then("^Validar el mensaje de rechazo cuando se ingresa mal la clave de ingreso \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+	public void validarElMensajeDeRechazoCuandoSeIngresaMalLaClaveDeIngreso(String tipoID, String usuario, String badPass) throws Exception {
+	    BaseUtil.usuario = usuario;
+		loginRobustoSteps.checkWrongPasswordUnique(tipoID, usuario, badPass);
+	}
+	
+	@Then("^Validar el mensaje de rechazo cuando se ingresa mal la clave de ingreso por num de intentos \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+	public void validarElMensajeDeRechazoCuandoSeIngresaMalLaClaveDeIngresoPorNumDeIntentos(String tipoID, String usuario, String badPass) throws Exception {
+	    BaseUtil.usuario = usuario;
+		loginRobustoSteps.checkWrongPasswordNumTries(tipoID, usuario, badPass);
 	}
 	
 	@When("^Cerrar sesion desde el home$")

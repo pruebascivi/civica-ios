@@ -41,7 +41,6 @@ public class PasarPlataCivicaSteps {
 		Utilidades.esperaMiliseg(2000);
 		Utilidades.tomaEvidencia("Ingresé el número de celular a quién voy a pasar plata");
 	}
-
 	
 	@Step
 	public void enterAmountMoney(String valor) throws NumberFormatException {
@@ -57,7 +56,7 @@ public class PasarPlataCivicaSteps {
 	 		Utilidades.esperaMiliseg(2000);
 			utilidadesTCS.clicElement("xpath", PasarPlataCivicaPage.ENTER_VALUE_FIELD); 
 	 		Utilidades.esperaMiliseg(950);
-			Utilidades.tomaEvidencia("Se intenta hacer una transacción sin contar con el saldo completo.");
+			UtilidadesTCS.causaFalla("Se intenta hacer una transacción sin contar con el saldo completo.");
 	        assert false : "Se intenta hacer una transacción sin contar con el saldo completo.";
 	        
 		} else {
@@ -93,7 +92,6 @@ public class PasarPlataCivicaSteps {
 		utilidadesTCS.clicElement("xpath", PasarPlataCivicaPage.ENTER_VALUE_FIELD);
 		utilidadesTCS.writeElement("xpath", PasarPlataCivicaPage.ENTER_VALUE_FIELD, valor);
 		Utilidades.tomaEvidencia("Ingresé el valor que no supera el saldo inicial");
-		
 	}
 	
 	@Step
@@ -133,8 +131,7 @@ public class PasarPlataCivicaSteps {
 			
 		} catch (AssertionError e) {
 			Utilidades.esperaMiliseg(2000);
-			Utilidades.tomaEvidencia("Valido que no se afecten los saldos en la aplicación");
-			BaseUtil.causaFalla = "No se afectan los saldos en la aplicación";
+			UtilidadesTCS.causaFalla("No se afectan los saldos en la aplicación");
 			fail("Error de aserción: " + e.getMessage());
 		}
 	}
@@ -152,8 +149,7 @@ public class PasarPlataCivicaSteps {
 			
 		} catch (AssertionError e) {
 			Utilidades.esperaMiliseg(2000);
-			Utilidades.tomaEvidencia("Valido que no se afecten los saldos en la aplicación");
-			BaseUtil.causaFalla = "No se afectan los saldos en la aplicación";
+			UtilidadesTCS.causaFalla("No se afectan los saldos en la aplicación");
 			fail("Error de aserción: " + e.getMessage());
 		}
 	}

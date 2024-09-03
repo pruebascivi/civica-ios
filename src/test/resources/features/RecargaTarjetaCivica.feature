@@ -31,7 +31,7 @@ Feature: Recargar tarjeta Cívica
 
     Examples: 
       | tipoId | usuario  | contrasena | monto  | tipoDocumento                            | documento | numCelularUsuario | subtipo |
-      | "CC"   | "999837" | "1234"     | "1000" | "Al portador (número de tarjeta cívica)" | "323897"  | "3142045585"      | "MET"   |
+      | "CC"   | "999837" | "1111"     | "1000" | "Al portador (número de tarjeta cívica)" | "323897"  | "3142045585"      | "MET"   |
 
   @CP0049M
   Scenario Outline: CP0049M_SYS_Realizar una recarga de tarjeta Cívica exitoso con un usuario MET a un usuario CE.
@@ -60,8 +60,8 @@ Feature: Recargar tarjeta Cívica
     And Validar afectacion de saldos civica
 
     Examples: 
-      | tipoId | usuario   | contrasena | monto  | tipoDocumento          | documento | numCelularUsuario | subtipo |
-      | "CE"   | "9999810" | "1234"     | "1000" | "Cédula de extranjera" | "292132"  | "3142045544"      | "MET"   |
+      | tipoId | usuario  | contrasena | monto  | tipoDocumento          | documento | numCelularUsuario | subtipo |
+      | "CE"   | "999829" | "2580"     | "1000" | "Cédula de extranjera" | "292132"  | "3142045544"      | "MET"   |
 
   @CP0050M
   Scenario Outline: CP0050M_SYS_Realizar una recarga de tarjeta Cívica exitoso con un usuario MET a un usuario TI.
@@ -170,7 +170,7 @@ Feature: Recargar tarjeta Cívica
 
     Examples: 
       | tipoId | usuario  | contrasena | monto  | tipoDocumento                            | documento | numCelularUsuario | favoriteTxt  |
-      | "CC"   | "999837" | "1234"     | "1000" | "Al portador (número de tarjeta cívica)" | "323897"  | "3142045585"      | "Favorite 1" |
+      | "CC"   | "999837" | "1111"     | "1000" | "Al portador (número de tarjeta cívica)" | "323897"  | "3142045585"      | "Favorite 1" |
 
   @CP0522M
   Scenario Outline: CP0522M_SYS_Validaciones en recarga de tarjeta Cívica desde home público.
@@ -180,4 +180,4 @@ Feature: Recargar tarjeta Cívica
 
     Examples: 
       | tipoId | usuario  | contrasena | monto  | tipoDocumento                            | documento | numCelularUsuario | subtipo |
-      | "CC"   | "999837" | "1234"     | "1000" | "Al portador (número de tarjeta cívica)" | "323897"  | "3142045585"      | "MET"   |
+      | "CC"   | "999837" | "1111"     | "1000" | "Al portador (número de tarjeta cívica)" | "323897"  | "3142045585"      | "MET"   |

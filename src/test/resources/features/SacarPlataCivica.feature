@@ -57,7 +57,7 @@ Feature: Sacar Plata Civica
 
     Examples: 
       | tipoId | usuario   | contrasena | monto   | numCelularUsuario | subtipo |
-      | "CE"   | "9999814" | "1438"     | "10000" | "3142045551"      | "MET"   |
+      | "CE"   | "999829"  | "2580"     | "10000" | "3142045551"      | "MET"   |
 
   @CP0041M
   Scenario Outline: CP0041M_SYS_Realizar un sacar plata exitoso con un usuario MET - TI
@@ -85,7 +85,7 @@ Feature: Sacar Plata Civica
 
     Examples: 
       | tipoId | usuario      | contrasena | monto   | numCelularUsuario | subtipo |
-      | "TI"   | "1080406492" | "0852"     | "10000" | "3142045552"      | "MET"   |
+      | "TI"   | "1080406492" | "1234"     | "10000" | "3142045552"      | "MET"   |
 
   @CP0042M
   Scenario Outline: CP0042M_SYS_Realizar un sacar plata exitoso con un usuario COMUN
@@ -155,5 +155,5 @@ Feature: Sacar Plata Civica
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario   | contrasena | montoExitoso | montoConUno | montoConDosOConCuatro | montoConTres | numCelularUsuario | subtipo | contraseniaErronea|
-      | "CE"   | "9999814" | "4568"     | "20000"      | "720000"    | "725000"              | "9000"       | "3142045551"      | "MET"   |  "2580"           |
+      | tipoId | usuario  | contrasena | montoExitoso | montoConUno | montoConDosOConCuatro | montoConTres | numCelularUsuario | subtipo | contraseniaErronea|
+      | "CE"   | "999829" | "2580"     | "20000"      | "720000"    | "725000"              | "9000"       | "3142045551"      | "MET"   |  "2580"           |

@@ -103,9 +103,9 @@ public class CambioClaveOlvidoSteps {
             Utilidades.esperaMiliseg(1000);
             performCambioClaveOlvidoSteps(correo, newPass);
             
-         }else {
+         } else {
           // Realizar acciones si el elemento no es visible
-        	 performCambioClaveOlvidoSteps(correo, newPass);
+        	performCambioClaveOlvidoSteps(correo, newPass);
          }
 	}
 	
@@ -113,7 +113,7 @@ public class CambioClaveOlvidoSteps {
 	
 	private void performCambioClaveOlvidoSteps(String correo, String newPass) throws Exception {
 		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.INPUT_MAIL_FIELD);
-		Utilidades.esperaMiliseg(500);
+		Utilidades.esperaMiliseg(1500);
 		utilidadesTCS.writeElement("xpath",CambioClaveOlvidoPage.INPUT_MAIL_FIELD, correo);
 		BaseUtil.baseMail = correo;
 		String correctMail = Credenciales.propertiesWebs().getProperty("userMail");
@@ -134,11 +134,10 @@ public class CambioClaveOlvidoSteps {
 			utilidadesTCS.clickByCoordinates(190, 260);
 	    	UtilidadesTCS.esperarElementVisibility("xpath", CambioClaveOlvidoPage.CREATE_PASS_BTN);
 			utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CREATE_PASS_BTN);	
-			Utilidades.esperaMiliseg(950);
+			Utilidades.esperaMiliseg(1200);
 			
 	    	//String isElementVisible = Evidencias.capturaDispositivoTesseract("Intenta otra clave");
-			Utilidades.tomaEvidencia("Intenta otra clave");
-	    	
+			//Utilidades.tomaEvidencia("Intenta otra clave");
 			//System.out.println("Mensaje extraido en la captura: " + isElementVisible);
 	    	//String base = "Intenta otra clave";
 	    	
@@ -151,9 +150,12 @@ public class CambioClaveOlvidoSteps {
 	
 		    } else {
 				//utilidadesTCS.clicElement("xpath",CambioClaveCivicaPage.PASS_CHANGE_CONFIRM_BTN);
-		    	UtilidadesTCS.esperarElementVisibility("xpath", CambioClaveOlvidoPage.END_BTN);
+		    	Utilidades.esperaMiliseg(500);
+		        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
 				Utilidades.tomaEvidencia("Validé el cambio exitoso de la clave");
+		    	UtilidadesTCS.esperarElementVisibility("xpath", CambioClaveOlvidoPage.END_BTN);
 				utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.END_BTN);
+		        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
 				
 				//Se comenta porque solo hay un END_BTN 
 				//for(int i=0; i<=2; i++) {
@@ -176,12 +178,14 @@ public class CambioClaveOlvidoSteps {
 	
 	private void performCambioClaveOlvidoStepsAllFlow(String newPass) throws Exception {
 		Utilidades.esperaMiliseg(500);
-		Utilidades.tomaEvidencia("Ingresé correo registrado");
 		utilidadesTCS.clickByCoordinates(190, 490);
+		Utilidades.esperaMiliseg(500);
+		Utilidades.tomaEvidencia("Ingresé correo registrado");
 		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CONTINUE_EMAIL_BTN);
-        Utilidades.esperaMiliseg(9000);
+        Utilidades.esperaMiliseg(1000);
+        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
 		utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
-        Utilidades.esperaMiliseg(6000);
+        Utilidades.esperaMiliseg(1000);
         Date fechaActual = new Date();
         System.out.println("Fecha actual: " + fechaActual);
         String user = Credenciales.propertiesWebs().getProperty("userMail");
@@ -196,6 +200,7 @@ public class CambioClaveOlvidoSteps {
 		Utilidades.tomaEvidencia("Ingresé código de verificación del correo");
 		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CONTINUE_CODE_VERIFY_BTN);
 		Utilidades.esperaMiliseg(500);
+		Utilidades.tomaEvidencia("Valido mensaje de creación de contraseña");
 		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.AD_CREATE_PASS);
 		Utilidades.esperaMiliseg(1000);
 		utilidadesTCS.clicElement("xpath",CambioClaveOlvidoPage.CREATE_NEW_PASS);

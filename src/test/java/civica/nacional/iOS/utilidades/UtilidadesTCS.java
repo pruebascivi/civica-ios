@@ -707,6 +707,37 @@ public class UtilidadesTCS extends PageObject {
 		System.out.println("No encontré la OTP");
 		return "No encontré la OTP"; // SI NO SE ENCUENTRA EL PATRÓN, DEVOLVER NULL O MANEJAR DE OTRA MANERA SEGÚN SEA NECESARIO
 	}
+	
+	public static void eliminarMensajeUltimoCorreo(String usuario, String contrasena) throws Exception {
+	    Properties propiedades = new Properties();
+	    propiedades.setProperty("mail.store.protocol", "imaps");
+	    propiedades.setProperty("mail.imaps.ssl.protocols", "TLSv1.2");
+	    propiedades.setProperty("mail.imaps.ssl.trust", "*");
+
+	    Session sesion = Session.getInstance(propiedades);
+
+	    Store tienda = sesion.getStore("imaps");
+	    tienda.connect("imap.gmail.com", usuario, contrasena);
+
+	    Folder bandeja = tienda.getFolder("inbox");
+	    bandeja.open(Folder.READ_WRITE);  // Asegúrate de que esté en modo READ_WRITE para poder eliminar mensajes
+
+	    Message[] mensajes = bandeja.getMessages();
+	    if (mensajes.length > 0) {
+	        Message ultimoMensaje = mensajes[mensajes.length - 1];
+
+	        // Marcar el mensaje como eliminado
+	        ultimoMensaje.setFlag(Flags.Flag.DELETED, true);
+
+	        // Cerrar la bandeja con la opción de expunged en true para eliminar los mensajes marcados
+	        bandeja.close(true);
+	    } else {
+	        System.out.println("No se encontraron mensajes en la bandeja.");
+	        bandeja.close(false);  // Cerrar sin expurgar si no hay mensajes
+	    }
+	    
+	    tienda.close();
+	}
 
 	private static String obtenerContenidoMensaje(Message mensaje) throws Exception {
 		Object contenido = mensaje.getContent();
@@ -1294,7 +1325,9 @@ public class UtilidadesTCS extends PageObject {
                 System.out.println("Terminó la espera del elemento.");
                 
             } else if(timeCont == maxWait) {
-    			fail("Tiempo de espera superado.");
+        		Utilidades.tomaEvidencia("Tiempo de espera superado");
+        		BaseUtil.causaFalla = "Tiempo de espera superado";
+    			fail("Tiempo de espera superado");
             }
         }
     }
@@ -1346,8 +1379,15 @@ public class UtilidadesTCS extends PageObject {
                 
             } else if(timeCont == maxWait) {
     			WebRedebanPageObjects.cerrarWebRedeban();
-    			fail("Tiempo de espera superado.");
+    			Utilidades.tomaEvidencia("Web - Tiempo de espera superado");
+        		BaseUtil.causaFalla = "Tiempo de espera superado";
+    			fail("Tiempo de espera superado");
             }
         }
+    }
+    
+    public static void causaFalla(String detalle) {
+		Utilidades.tomaEvidencia(detalle);
+		BaseUtil.causaFalla = detalle.trim();
     }
 }

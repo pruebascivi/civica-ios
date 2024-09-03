@@ -63,5 +63,4 @@ public class PasarPlataCivicaDefinitions {
 	public void validarAfectacionDeSaldosCivica() {
 		pasarPlataSteps.validarAfectacionSaldos();
 	}
-	 
 }

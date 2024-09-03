@@ -25,7 +25,7 @@ public class CambioClaveCivicaSteps {
 		utilidadesTCS.clicElement("xpath",CambioClaveCivicaPage.ENTER_PSS_TO_CONTINUE);
 		utilidadesTCS.writeElement("xpath",CambioClaveCivicaPage.ENTER_PSS_TO_CONTINUE, contrasena);
 		BaseUtil.baseContrasena = contrasena;
-		Utilidades.tomaEvidencia("Valido campo ingreso clave actual para continuar con cambio de clave");
+		Utilidades.tomaEvidencia("Valido campo ingreso clave actual");
 		Utilidades.esperaMiliseg(500);
 		utilidadesTCS.clicElement("xpath",CambioClaveCivicaPage.CONTINUE_BTN_CHANGE_PSS); 
 		System.out.println("Ingresando clave actual para cambio de clave");

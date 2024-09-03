@@ -59,6 +59,8 @@ public class BaseUtil {
 	//Datos Set Operacion - Regresion
 	public static String usuario = "No Aplica";
 	public static String numeroCelular = "No Aplica";
+	public static String tipoDocumento = "No Aplica";
+	public static String subTipo = "No Aplica";
 	public static String versionApp = "No Aplica";
 	public static String causaFalla = "No Aplica";
 	public static String saldoIni = "-";

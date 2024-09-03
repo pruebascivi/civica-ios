@@ -52,7 +52,9 @@ public class LoginCivicaSteps {
 	        UtilidadesTCS.esperarElementVisibility("xpath", TransporteCivicaPageObjects.TRAVEL_WITH_QR);
 			
 		} catch (Exception e) {
-			fail("No se pudo interactuar con el elemento o tiempo de espera superado" + e);
+	        Utilidades.esperaMiliseg(1000);
+			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+			fail("Error de aserción: " + e.getMessage());
 		    assert utilidadesTCS.validateElementVisibility("xpath", LoginCivicaPage.MENU_HAMBURGUESA) : "El elemento del menú no es visible después de esperar";
 		}  
 	}
@@ -66,6 +68,7 @@ public class LoginCivicaSteps {
 			utilidadesTCS.clicElement("xpath", LoginCivicaPage.LIST_TIPO_ID);
 			
 		} catch(Exception e) {
+			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
 			fail("No se pudo interactuar con el elemento" + e);
 		}
 	}
@@ -80,7 +83,7 @@ public class LoginCivicaSteps {
 		utilidadesTCS.clicElement("xpath",LoginCivicaPage.TXT_VERSION_APP);
 		String version = utilidadesTCS.obtenerTexto("xpath",LoginCivicaPage.TXT_VERSION_APP);
 		BaseUtil.versionApp = version;
-		Utilidades.tomaEvidencia("Valido la: " + version);
+		Utilidades.tomaEvidencia("Información " + version);
 		System.out.println(version);
 	}
 	
@@ -99,6 +102,7 @@ public class LoginCivicaSteps {
 		    utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
 		    
 			} catch (Exception e) {
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
 				fail("No se pudo interactuar con el elemento" + e);
 			}
 		} 
@@ -116,6 +120,7 @@ public class LoginCivicaSteps {
 				Utilidades.esperaMiliseg(5000);
 			    utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
 			} catch (Exception e) {
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
 				fail("No se pudo interactuar con el elemento" + e);
 			}
 		} 
@@ -133,6 +138,7 @@ public class LoginCivicaSteps {
 	        Utilidades.esperaMiliseg(6000);
 
 		} catch (Exception e) {
+			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
 			fail("No se pudo interactuar con el elemento" + e);
 		}
 		
@@ -153,6 +159,8 @@ public class LoginCivicaSteps {
 		        Utilidades.esperaMiliseg(5000);
 		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
 		        utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
+				Utilidades.esperaMiliseg(800);
+		        Utilidades.tomaEvidencia("Ingreso OTP en cambio de dispositivo");
 		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN);
 		        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 		
@@ -165,10 +173,11 @@ public class LoginCivicaSteps {
 		        Utilidades.esperaMiliseg(1000);
 		        
         	 } catch (Exception e) {
+     			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
      			fail("No se pudo interactuar con el elemento" + e);
     		    assert utilidadesTCS.validateElementVisibility("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN) : "No se pudo ingresar correctamente el código de autorización.";
      		}
-        }else {
+        } else {
         	
         	try {
 	            /*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/
@@ -181,31 +190,92 @@ public class LoginCivicaSteps {
 	            utilidadesTCS.clicElement("xpath", LoginCivicaPage.BACKGROUND_VIEW);
 	            
 	        } catch (Exception e) {
-				fail("No se pudo interactuar con el elemento" + e);
+				//UtilidadesTCS.causaFalla("Error al ingresar contraseña");
+				fail("Error al ingresar contraseña" + e);
 			}
         }
 	}
 	
 	@Step
 	public void clickOnEnterOption() {
-		for(int i=0; i<=1; i++) {
-			utilidadesTCS.clicElement("xpath",LoginCivicaPage.BTN_INGRESAR);
-		}
-        Utilidades.esperaMiliseg(1050);
-        Utilidades.tomaEvidencia("Ingreso clave");
+	    boolean isVisible;
+	    int clickCount = 0;
+
+	    do {
+	        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESAR);
+	        
+	        // Tomar evidencia solo en el segundo clic
+	        if (clickCount == 0) {
+				Utilidades.esperaMiliseg(500);
+	            Utilidades.tomaEvidencia("Ingreso clave");
+	        }
+	        
+	        // Verificar si el elemento sigue siendo visible
+	        isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.BTN_INGRESAR);
+	        clickCount++;
+	        
+	    } while (isVisible);
 	}
 	
 	@Step
 	public void clickOnEnterOptionBad() {
-		for(int i=0; i<=1; i++) {
-			utilidadesTCS.clicElement("xpath",LoginCivicaPage.BTN_INGRESAR);
-		}
+	    boolean isVisible;
+	    int clickCount = 0;
+
+	    do {
+	        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESAR);
+	        
+	        // Tomar evidencia solo en el segundo clic
+	        if (clickCount == 1) {
+				Utilidades.esperaMiliseg(499);
+	            Utilidades.tomaEvidencia("Ingreso clave errónea");
+	        }
+	        
+	        // Verificar si el elemento sigue siendo visible
+	        isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.BTN_INGRESAR);
+	        clickCount++;
+	        
+	    } while (isVisible);
+	}
+	
+	@Step
+	public void clickOnEnterOptionBadNumTries() {
+	    boolean isVisible;
+	    int clickCount = 0;
+
+	    do {
+	        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESAR);
+	        
+	        // Tomar evidencia solo en el segundo clic
+	        if (clickCount == 1) {
+				Utilidades.esperaMiliseg(245);
+	            Utilidades.tomaEvidencia("Ingreso clave errónea");
+	        }
+	        
+	        // Verificar si el elemento sigue siendo visible
+	        isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.BTN_INGRESAR);
+	        clickCount++;
+	        
+	    } while (isVisible);
 	}
 	
 	@Step
 	public void verifyToBeInsideTheApp() {
 		try {
             utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 180);
+		    boolean isVisible;
+		    int clickCount = 0;
+		    
+	        boolean defect = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
+		    if(defect) {
+			    do {
+			        utilidadesTCS.clicElement("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
+			        isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
+			        clickCount++;
+			        
+			    } while (isVisible && clickCount < 5);
+		    }
+		    
             WebDriverWait wait = new WebDriverWait(driver, 1);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PasarPlataCivicaPage.SALDOS_HOME)));
 			UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
@@ -218,13 +288,18 @@ public class LoginCivicaSteps {
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.DATOS_USUARIO);
             utilidadesTCS.clicElement("xpath", LoginCivicaPage.DATOS_USUARIO);
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.DATOS_PERSONALES);
+			Utilidades.esperaMiliseg(1000);
             utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
-			Utilidades.tomaEvidencia("Verifico que me encuentro dentro de la app Cívica. Usuario activo en este dispositivo");	
+            UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.CEL_NUMBER_USER);
+			Utilidades.tomaEvidencia("Verifico que el usuario está activo en la APP.");	
+			BaseUtil.numeroCelular = utilidadesTCS.obtenerTexto("xpath", LoginCivicaPage.CEL_NUMBER_USER);
+			BaseUtil.tipoDocumento = utilidadesTCS.obtenerTexto("xpath", LoginCivicaPage.ID_NUMBER_USER);
             utilidadesTCS.clicElement("xpath", LoginCivicaPage.REGRESAR);
-            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
 
         } catch (TimeoutException e) {
-        	fail("Tiempo de espera excedido: " + e.getMessage());
+			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+        	fail(e.getMessage());
         }
     }
 	
@@ -236,16 +311,16 @@ public class LoginCivicaSteps {
 	        if (intento < 4) {
 	            System.out.println("Ingreso clave errónea: Intento " + intento);
 	        } else {
-	            System.out.println("Validé POPUP 'Algo salió mal.");
+	            System.out.println("Validé POPUP 'Algo salió mal");
 	            //Utilidades.tomaEvidencia("Validé mensaje 'Algo salió mal luego de cuarta clave errónea. Superaste el número de intentos' Intenta en 5:00 minutos'");
 	        }
 	    }
-        System.out.println("Validé POPUP 'Algo salió mal.");	
+        System.out.println("Validé POPUP 'Algo salió mal");	
     }
 	
 	@Step
 	public void validatePopupErrorMaxLoginAttempt() {
-		System.out.println("Validé POPUP 'Algo salió mal.");
+		System.out.println("Validé POPUP 'Algo salió mal");
 	}
 	
 	@Step
@@ -260,13 +335,12 @@ public class LoginCivicaSteps {
 				utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
 				
 			} catch (Exception e) {
-				
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
 				fail("No se pudo interactuar con el elemento" + e);
 			}
 			
 		} else
 			try {
-				
 				UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_MH);        
 				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_MH);        
 				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_TIPO_DOC);
@@ -276,16 +350,18 @@ public class LoginCivicaSteps {
 		        Utilidades.tomaEvidencia("Ingreso número de documento");
 		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_CONTINUAR_LOGIN);        
 		        Utilidades.esperaMiliseg(1000);
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 		        
 			} catch (Exception e) {      
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
 				fail("No se pudo interactuar con el elemento" + e);        
 			}
 
 		boolean isElementVisible = utilidadesTCS.isTextPresent("xpath", LoginCivicaPage.ELEMENT_VISIBLE, "Hemos detectado");
 		if (isElementVisible) {             
 			 try {
-		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
-		        Utilidades.esperaMiliseg(6000);
+		        Utilidades.esperaMiliseg(2000);
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
 		        Date fechaActual = new Date();
 		        System.out.println("Fecha actual: " + fechaActual);
 		        String user = Credenciales.propertiesWebs().getProperty("userMail");
@@ -293,6 +369,10 @@ public class LoginCivicaSteps {
 		        String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
 		        System.out.println("Código de activación: " + codigoActivacion);
 		        String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
+		        Utilidades.esperaMiliseg(2000);
+				UtilidadesTCS.esperarElementVisibility("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);        
+		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
+		        Utilidades.esperaMiliseg(1500);
 		        utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
 		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN);
 		        Utilidades.esperaMiliseg(1000);
@@ -337,6 +417,174 @@ public class LoginCivicaSteps {
 				 
 				 fail("No se pudo interactuar con el elemento" + e);            
 			 }	 
+		}
+	}
+	
+	@Step
+	public void checkWrongPasswordUnique(String tipoID, String usuario, String badPass) throws Exception {
+		boolean isElementLogoutVisible = utilidadesTCS.validateElementVisibilityException("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
+
+		if (isElementLogoutVisible) {
+			try {
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
+				Utilidades.esperaMiliseg(5000);
+				UtilidadesTCS.esperarElementVisibility("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
+				utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
+				
+			} catch (Exception e) {
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+				fail("No se pudo interactuar con el elemento" + e);
+			}
+			
+		} else
+			try {
+				UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_MH);        
+				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_MH);        
+				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_TIPO_DOC);
+		        utilidadesTCS.scrollToElement(LoginCivicaPage.DESPLEGABLE_TIPO_DOC_CC, tipoID);
+		        Utilidades.tomaEvidencia("Selecciono tipo de documento");
+		        utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_NUM_DOC, usuario);
+		        Utilidades.tomaEvidencia("Ingreso número de documento");
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_CONTINUAR_LOGIN);        
+		        Utilidades.esperaMiliseg(1000);
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+		        
+			} catch (Exception e) {      
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+				fail("No se pudo interactuar con el elemento" + e);        
+			}
+
+		boolean isElementVisible = utilidadesTCS.isTextPresent("xpath", LoginCivicaPage.ELEMENT_VISIBLE, "Hemos detectado");
+		if (isElementVisible) {             
+			 try {
+		        Utilidades.esperaMiliseg(2000);
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);		        
+	            Date fechaActual = new Date();
+		        System.out.println("Fecha actual: " + fechaActual);
+		        String user = Credenciales.propertiesWebs().getProperty("userMail");
+		        String pass = Credenciales.propertiesWebs().getProperty("passMail");
+		        String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
+		        System.out.println("Código de activación: " + codigoActivacion);
+		        String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
+		        UtilidadesTCS.eliminarMensajeUltimoCorreo(user, pass);
+		        Utilidades.esperaMiliseg(2000);
+				UtilidadesTCS.esperarElementVisibility("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);        
+		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
+		        Utilidades.esperaMiliseg(1500);
+		        utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
+				Utilidades.esperaMiliseg(800);
+		        Utilidades.tomaEvidencia("Ingreso OTP en cambio de dispositivo");
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN);
+		        Utilidades.esperaMiliseg(5000);
+				utilidadesTCS.writeElement("xpath",LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, badPass);
+				Utilidades.esperaMiliseg(1000);            
+				clickOnEnterOptionBad();
+				Utilidades.esperaMiliseg(800);
+				System.out.println("Valido mensaje de rechazo por clave errónea");
+				
+			 } catch (Exception e) {         
+				fail("No se pudo interactuar con el elemento" + e);  
+			 }
+			 
+		} else {
+			 try {
+				/*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/     
+				 
+				System.out.println("El elemento no está presente o no es visible. Ejecutando el bloque else.");            
+				UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN);        
+				utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, badPass);            
+				Utilidades.esperaMiliseg(1000);            
+				clickOnEnterOptionBad();
+				Utilidades.esperaMiliseg(800);
+				System.out.println("Valido mensaje de rechazo por clave errónea");
+				
+			 } catch (Exception e) {              
+				 fail("No se pudo interactuar con el elemento" + e);            
+			 }
+		}
+	}
+	
+	@Step
+	public void checkWrongPasswordNumTries(String tipoID, String usuario, String badPass) throws Exception {
+		boolean isElementLogoutVisible = utilidadesTCS.validateElementVisibilityException("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
+
+		if (isElementLogoutVisible) {
+			try {
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.ELEMENT_LOGOUT_VISIBLE);
+				Utilidades.esperaMiliseg(5000);
+				UtilidadesTCS.esperarElementVisibility("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
+				utilidadesTCS.clicElement("xpath",LoginCivicaPage.MENU_HAMBURGUESA);
+				
+			} catch (Exception e) {
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+				fail("No se pudo interactuar con el elemento" + e);
+			}
+			
+		} else
+			try {
+				UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_MH);        
+				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_MH);        
+				utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_TIPO_DOC);
+		        utilidadesTCS.scrollToElement(LoginCivicaPage.DESPLEGABLE_TIPO_DOC_CC, tipoID);
+		        Utilidades.tomaEvidencia("Selecciono tipo de documento");
+		        utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_NUM_DOC, usuario);
+		        Utilidades.tomaEvidencia("Ingreso número de documento");
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_CONTINUAR_LOGIN);        
+		        Utilidades.esperaMiliseg(1000);
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+		        
+			} catch (Exception e) {      
+				//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+				fail("No se pudo interactuar con el elemento" + e);        
+			}
+
+		boolean isElementVisible = utilidadesTCS.isTextPresent("xpath", LoginCivicaPage.ELEMENT_VISIBLE, "Hemos detectado");
+		if (isElementVisible) {             
+			 try {
+		        Utilidades.esperaMiliseg(2000);
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);		        
+	            Date fechaActual = new Date();
+		        System.out.println("Fecha actual: " + fechaActual);
+		        String user = Credenciales.propertiesWebs().getProperty("userMail");
+		        String pass = Credenciales.propertiesWebs().getProperty("passMail");
+		        String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
+		        System.out.println("Código de activación: " + codigoActivacion);
+		        String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
+		        UtilidadesTCS.eliminarMensajeUltimoCorreo(user, pass);
+		        Utilidades.esperaMiliseg(2000);
+				UtilidadesTCS.esperarElementVisibility("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);        
+		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
+		        Utilidades.esperaMiliseg(1500);
+		        utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
+				Utilidades.esperaMiliseg(800);
+		        Utilidades.tomaEvidencia("Ingreso OTP en cambio de dispositivo");
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN);
+		        Utilidades.esperaMiliseg(5000);
+				utilidadesTCS.writeElement("xpath",LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, badPass);
+				Utilidades.esperaMiliseg(1000);            
+				clickOnEnterOptionBadNumTries();
+				Utilidades.esperaMiliseg(800);
+				System.out.println("Valido mensaje de rechazo por clave errónea");
+				
+			 } catch (Exception e) {         
+				fail("No se pudo interactuar con el elemento" + e);  
+			 }
+			 
+		} else {
+			 try {
+				/*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/     
+				 
+				System.out.println("El elemento no está presente o no es visible. Ejecutando el bloque else.");            
+				UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN);        
+				utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, badPass);            
+				Utilidades.esperaMiliseg(1000); 
+				clickOnEnterOptionBadNumTries();
+				Utilidades.esperaMiliseg(800);
+				System.out.println("Valido mensaje de rechazo por clave errónea");
+				
+			 } catch (Exception e) {              
+				 fail("No se pudo interactuar con el elemento" + e);            
+			 }
 		}
 	}
 	
@@ -408,7 +656,7 @@ public class LoginCivicaSteps {
            utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, contrasenia);
            clickOnEnterOptionBad();
            Utilidades.esperaMiliseg(999);
-           Utilidades.tomaEvidencia("Ingreso clave errónea");
+           //Utilidades.tomaEvidencia("Ingreso clave errónea");
       	   System.out.println("Ingreso clave errónea");  
       	   
         } else {
