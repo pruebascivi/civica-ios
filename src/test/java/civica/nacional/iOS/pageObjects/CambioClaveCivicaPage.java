@@ -18,4 +18,6 @@ public class CambioClaveCivicaPage {
 	public static final String PASS_NO_VALID = "//*[@name='Intenta otra clave']";
 	public static final String ACCPT_POPUP_PASS_NO_VALID = "//XCUIElementTypeButton[@name='Aceptar']";
 	public static final String RETURN_CHANGE_PASS = "//XCUIElementTypeButton[@name='Cambia tu clave']";
+	public static final String ICON_EYE_PASS = "(//XCUIElementTypeImage[@name='iconEyeClose'])[1]";
+	public static final String ICON_EYE_CONFIRM_PASS = "//XCUIElementTypeImage[@name='iconEyeClose']";
 }

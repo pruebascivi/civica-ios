@@ -137,6 +137,21 @@ public class PasarPlataCivicaSteps {
 	}
 	
 	@Step
+	public void validarSaldosInicialesCivicaSinRedeban() {
+		try {
+	        WebDriverWait wait = new WebDriverWait(driver, 1);
+	        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PasarPlataCivicaPage.SALDOS_HOME)));
+			UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
+			String saldo = utilidadesTCS.obtenerTexto("xpath", PasarPlataCivicaPage.SALDOS_HOME);
+			BaseUtil.initialBalance  = UtilidadesTCS.removeDecimalBalances(saldo);
+			Utilidades.tomaEvidencia("Validar saldos iniciales de Cívica");
+			
+		} catch (AssertionError e) {
+			fail("Error de aserción: " + e.getMessage());
+		}
+	}
+	
+	@Step
 	public void capturarSaldosFinalesCivica() {
 		try {
 			Utilidades.esperaMiliseg(2000);

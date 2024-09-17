@@ -1,6 +1,8 @@
 package civica.nacional.iOS.steps;
 
 import java.math.BigDecimal;
+
+import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.PagoServiciosPage;
 import civica.nacional.iOS.pageObjects.PasarPlataCivicaPage;
 import civica.nacional.iOS.utilidades.BaseUtil;
@@ -45,6 +47,27 @@ public class PagoServiciosSteps {
 		} else {
 	        System.out.println("Número de referencia valida, continua la ejecución.");
 		}
+	}
+	
+	@Step
+	public void inputBadRef(String servicio, String referencia) {
+		Utilidades.esperaMiliseg(500);
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.HACER_PAGOS_BTN);
+		Utilidades.esperaMiliseg(1000);
+	    utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+		Utilidades.tomaEvidencia("Ingresé al módulo 'Hacer Pagos'");
+		utilidadesTCS.clicElement("xpath", PagoServiciosPage.TODOS_HACER_PAGOS_BTN);
+		utilidadesTCS.clicElement("xpath", PagoServiciosPage.INPUT_COMPANY_SERVICE_FIELD);
+		utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_COMPANY_SERVICE_FIELD, servicio );
+		Utilidades.esperaMiliseg(500);
+		utilidadesTCS.clickByCoordinates(100, 370);
+		Utilidades.esperaMiliseg(500);
+		utilidadesTCS.clicElement("xpath", PagoServiciosPage.INPUT_REF_FIELD);
+		utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_REF_FIELD, referencia );
+		utilidadesTCS.clickByCoordinates(180, 400);
+		utilidadesTCS.clicElement("xpath", PagoServiciosPage.REF_CONTINUE_BTN);
+		Utilidades.esperaMiliseg(800);
+		Utilidades.tomaEvidencia("No se pudo realizar pago ya que el número de referencia no existe.");
 	}
 	
 	@Step
@@ -109,7 +132,91 @@ public class PagoServiciosSteps {
 			utilidadesTCS.clicElement("xpath",PagoServiciosPage.BACK_BTN);
 		}
 	}
+	
+	@Step
+	public void enterValuePaidInvalidRef(String valor, String contrasena) {
 		
+		int valueInAccount = Integer.parseInt(UtilidadesTCS.removeDecimal(BaseUtil.initialBalance).trim());
+		int valueToSend = Integer.parseInt(valor.trim());
+		
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_VALUE_FIELD);
+		utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_VALUE_FIELD, valor );
+		BigDecimal valorBigDecimal = new BigDecimal(valor); 
+		BaseUtil.montoTransado = valorBigDecimal;
+		utilidadesTCS.clickByCoordinates(200, 300);
+		Utilidades.esperaMiliseg(500);
+		Utilidades.tomaEvidencia("Ingresé el valor a pagar");
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.VALUE_CONTINUE_BTN);
+		Utilidades.esperaMiliseg(500);
+		
+		if(valueInAccount < valueToSend) {
+			Utilidades.esperaMiliseg(950);
+			Utilidades.tomaEvidencia("Se intenta hacer una transacción sin contar con el saldo completo.");
+	        assert false : "Se intenta hacer una transacción sin contar con el saldo completo.";
+		} 
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+		utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_PASS_FIELD, contrasena );
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+		Utilidades.esperaMiliseg(500);
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.PASS_CONTINUE_BTN);
+		
+		boolean isElementVisible = utilidadesTCS.isTextPresent("xpath", PagoServiciosPage.BAD_PASS_IMPUT, "La clave no es correcta");
+		
+		if(isElementVisible) {
+			for(int i=0; i<=4; i++) {
+				utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+				utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_PASS_FIELD, contrasena );
+				utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+				Utilidades.esperaMiliseg(500);
+				utilidadesTCS.clicElement("xpath",PagoServiciosPage.PASS_CONTINUE_BTN);
+			}
+			Utilidades.esperaMiliseg(500);
+			Utilidades.tomaEvidencia("No fue posible el ingreso por exceder número intentos ingresando clave errónea.");
+	        assert false : "No fue posible el ingreso por exceder número intentos ingresando clave errónea.";
+
+		} else {
+			Utilidades.esperaMiliseg(5000);
+			Utilidades.tomaEvidencia("Validé mensaje referencia inválida");
+		}
+	}
+	
+	@Step
+	public void enterValuePaidBadPass(String valor, String contrasena) {
+		
+		int valueInAccount = Integer.parseInt(UtilidadesTCS.removeDecimal(BaseUtil.initialBalance).trim());
+		int valueToSend = Integer.parseInt(valor.trim());
+		
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_VALUE_FIELD);
+		utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_VALUE_FIELD, valor);
+		BigDecimal valorBigDecimal = new BigDecimal(valor); 
+		BaseUtil.montoTransado = valorBigDecimal;
+		utilidadesTCS.clickByCoordinates(200, 300);
+		Utilidades.esperaMiliseg(500);
+		Utilidades.tomaEvidencia("Ingresé el valor a pagar");
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.VALUE_CONTINUE_BTN);
+		Utilidades.esperaMiliseg(500);
+		
+		if(valueInAccount < valueToSend) {
+			Utilidades.esperaMiliseg(950);
+			Utilidades.tomaEvidencia("Se intenta hacer una transacción sin contar con el saldo completo.");
+	        assert false : "Se intenta hacer una transacción sin contar con el saldo completo.";
+		} 
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+		utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_PASS_FIELD, contrasena);
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+		Utilidades.esperaMiliseg(500);
+		utilidadesTCS.clicElement("xpath",PagoServiciosPage.PASS_CONTINUE_BTN);
+		
+		for(int i=0; i<=4; i++) {
+			utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+			utilidadesTCS.writeElement("xpath", PagoServiciosPage.INPUT_PASS_FIELD, contrasena);
+			utilidadesTCS.clicElement("xpath",PagoServiciosPage.INPUT_PASS_FIELD);
+			Utilidades.esperaMiliseg(500);
+			utilidadesTCS.clicElement("xpath",PagoServiciosPage.PASS_CONTINUE_BTN);
+		}
+		Utilidades.esperaMiliseg(500);
+		Utilidades.tomaEvidencia("No fue posible el ingreso por exceder número intentos ingresando clave errónea.");
+	}
 
 	@Step
 	public void takeFinalBalance() {

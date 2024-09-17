@@ -277,17 +277,22 @@ public class Evidencias {
 			
 			if (estadoCaso.equals("FAILED")) {
 				if(BaseUtil.causaFalla != "No Aplica"){
-					paragraphsixRunOne.setColor("000070");
-					paragraphsixRunOne.setText(BaseUtil.causaFalla);
-					
 					paragraphFour = document.createParagraph();
 					paragraphFour.setAlignment(ParagraphAlignment.LEFT);
+					// causaFalla sin negrilla
 					paragraphsixRunOne = paragraphFour.createRun();
 					paragraphsixRunOne.setBold(true);
-					paragraphsixRunOne.setFontSize(10);
+					paragraphsixRunOne.setFontSize(14);
 					paragraphsixRunOne.setFontFamily("Verdana");
 					paragraphsixRunOne.setColor("000070");
-					paragraphsixRunOne.setText("Causa de la falla: ");
+					paragraphsixRunOne.setText("Causa de la falla:");
+					// causaFalla sin negrilla
+					XWPFRun paragraphsixRunFour = paragraphFour.createRun();
+					paragraphsixRunFour.setFontFamily("Verdana");
+					paragraphsixRunFour.setColor("000070");		
+					paragraphsixRunFour.setBold(false);
+					paragraphsixRunFour.setFontSize(10);
+					paragraphsixRunOne.setText(" " + BaseUtil.causaFalla);
 				}
 			}
 

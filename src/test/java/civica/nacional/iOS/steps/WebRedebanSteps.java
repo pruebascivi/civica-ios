@@ -306,7 +306,7 @@ public class WebRedebanSteps {
 			WebRedebanPageObjects.clicBtnDebitoPrepago();
 			WebRedebanPageObjects.clicBtnConsultaClientes();
 			Utilidades.esperaMiliseg(5000);
-	        utilidadesTCS.esperaCargaElementoWeb(WebRedebanPageObjects.PROGRESS_BAR_REDEBAN, 60);
+//	        utilidadesTCS.esperaCargaElementoWeb(WebRedebanPageObjects.PROGRESS_BAR_REDEBAN, 60);
 			WebRedebanPageObjects.clicChkNumeroID();
 			WebRedebanPageObjects.sendKeysInputNumeroID(cliente);
 			Utilidades.esperaMiliseg(500);
@@ -387,6 +387,7 @@ public class WebRedebanSteps {
 		try {
 			WebRedebanPageObjects.abrirWebRedeban();
 			// webRedebanPageObjects.clicBtnContinuar();
+			
 			WebRedebanPageObjects.sendKeysInputUsuario();
 			WebRedebanPageObjects.sendKeysInputPass();
 			WebRedebanPageObjects.clicBtnEnvia();
@@ -399,7 +400,7 @@ public class WebRedebanSteps {
 
 	public String correoActual(String usuario) {
 		Utilidades.esperaMiliseg(2000);
-		System.out.println("entre a consultar numero de celular");
+		System.out.println("entré a consultar el número de celular");
 		String numCelular = consultaNumeroCelular(usuario);
 		Utilidades.esperaMiliseg(6000);
 		System.out.println("dando click a btn monederos");

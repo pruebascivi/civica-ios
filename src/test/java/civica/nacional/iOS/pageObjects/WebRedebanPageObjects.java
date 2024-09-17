@@ -2158,7 +2158,9 @@ public class WebRedebanPageObjects {
 	}
 
 	public static void abrirWebRedeban() {
+		CustomChromeDriver.capturarIp();
 		CustomChromeDriver.iniciarChromeDriver();
+		CustomChromeDriver.capturarIp();
 		BaseUtil.chromeDriver.get(Credenciales.propertiesWebs().getProperty("web.redeban.url"));
 		BaseUtil.chromeDriver.manage().window().maximize();
 		wait = new WebDriverWait(BaseUtil.chromeDriver, 60);

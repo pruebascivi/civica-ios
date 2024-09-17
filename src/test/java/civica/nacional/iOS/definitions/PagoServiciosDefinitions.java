@@ -25,9 +25,24 @@ public class PagoServiciosDefinitions {
 		pagoServiciosSteps.enterIntoHacerPagos(servicio, referencia);
 	}
 	
+	@Given("^ingreso referencia no existente \"([^\"]*)\" \"([^\"]*)\"$")
+	public void ingresoReferenciaNoExistente(String servicio, String referencia) {
+		pagoServiciosSteps.inputBadRef(servicio, referencia);
+	}
+	
 	@When("^ingreso valor a pagar \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoValorAPagar(String valor, String contrasena) {
 		pagoServiciosSteps.enterValuePaid(valor, contrasena);
+	}
+	 
+	@When("^ingreso flujo valor a pagar con ref invalida \"([^\"]*)\" \"([^\"]*)\"$")
+	public void ingresoFlujoValorAPagarConRefInvalida(String valor, String contrasena) {
+		pagoServiciosSteps.enterValuePaidInvalidRef(valor, contrasena);
+	}
+	
+	@When("^ingreso clave erronea \"([^\"]*)\" \"([^\"]*)\"$")
+	public void ingresoClaveErronea(String valor, String contrasena) {
+		pagoServiciosSteps.enterValuePaidBadPass(valor, contrasena);
 	}
 	
 	@When("^Ingreso al modulo Hacer pagos$")

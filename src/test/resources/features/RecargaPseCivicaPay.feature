@@ -30,7 +30,7 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena | destinationUserCell | monto   | banco                    | clave | destinationUser | subtipo |
-      | "CC"   | "999837" | "1111"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "MET"   |
+      | "CC"   | "999837" | "1112"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "MET"   |
 
   @CP00472M
   Scenario Outline: CP00472M_SYS_Realizar una recarga por PSE Civicapay a un usuario MET - CE.
@@ -86,7 +86,7 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena | destinationUserCell | monto   | banco                    | clave | destinationUser | subtipo |
-      | "CC"   | "999837" | "1111"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "MET"   |
+      | "CC"   | "999837" | "1112"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "MET"   |
 
   @CP00474M
   Scenario Outline: CP00474M_SYS_Realizar una recarga por PSE Civicapay a un usuario GMF.
@@ -114,7 +114,7 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena | destinationUserCell | monto   | banco                    | clave | destinationUser | subtipo |
-      | "CC"   | "999837" | "1111"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "GMF"   |
+      | "CC"   | "999837" | "1112"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "GMF"   |
 
   @CP00475M
   Scenario Outline: CP00475M_SYS_Realizar una recarga por PSE Civicapay a un usuario DAVIPLATA.
@@ -142,7 +142,7 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena | destinationUserCell | monto   | banco                    | clave | destinationUser | subtipo |
-      | "CC"   | "999837" | "1111"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "BMO"   |
+      | "CC"   | "999837" | "1112"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "BMO"   |
 
   @CP00476M
   Scenario Outline: CP00476M_SYS_Realizar una recarga por PSE Civicapay a un usuario RAPPI.
@@ -170,7 +170,7 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena | destinationUserCell | monto   | banco                    | clave | destinationUser | subtipo |
-      | "CC"   | "999837" | "1111"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "RAP"   |
+      | "CC"   | "999837" | "1112"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "RAP"   |
 
   @CP00477M
   Scenario Outline: CP00477M_SYS_Realizar una recarga por PSE Civicapay a un usuario MIGRADO.
@@ -198,7 +198,7 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena | destinationUserCell | monto   | banco                    | clave | destinationUser | subtipo |
-      | "CC"   | "999837" | "1111"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "MET"   |
+      | "CC"   | "999837" | "1112"     | "3142045584"        | "10000" | "BANCO UNION COLOMBIANO" | "123" | "999836"        | "MET"   |
 
   @CP00478M
   Scenario Outline: CP00478M_SYS_Valido Pop up al intentar ingresar al módulo Recargar Civica en el home público
@@ -215,4 +215,4 @@ Feature: Recargar por PSE
 
     Examples: 
       | tipoId | usuario  | contrasena |
-      | "CC"   | "999837" | "1111"     |
+      | "CC"   | "999837" | "1112"     |

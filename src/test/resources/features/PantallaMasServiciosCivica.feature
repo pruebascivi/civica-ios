@@ -16,4 +16,4 @@ Feature: Pago Mas Servicios
   
   Examples: 
       | tipoId | usuario  | contrasena |
-      | "CC"   | "999837" | "1234"     |
+      | "CC"   | "999837" | "1112"     |

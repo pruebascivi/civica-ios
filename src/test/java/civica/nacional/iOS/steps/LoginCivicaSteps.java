@@ -6,6 +6,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import civica.nacional.iOS.definitions.Hooks;
+import civica.nacional.iOS.pageObjects.CambioClaveCivicaPage;
 import civica.nacional.iOS.pageObjects.LoginCivicaPage;
 import civica.nacional.iOS.pageObjects.PasarPlataCivicaPage;
 import civica.nacional.iOS.pageObjects.RegistroCivicaPage;
@@ -134,6 +135,83 @@ public class LoginCivicaSteps {
 	        utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_NUM_DOC, usuario);
 	        Utilidades.tomaEvidencia("Selecciono tipo de documento e ingreso número de documento");
 	        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_CONTINUAR_LOGIN);
+	        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
+
+		} catch (Exception e) {
+			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+			fail("No se pudo interactuar con el elemento" + e);
+		}
+		
+        Utilidades.esperaMiliseg(2000);
+        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
+		boolean isElementVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ELEMENT_VISIBLE);
+
+         if (isElementVisible) {
+        	 try {
+		    	/*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/
+		        UtilidadesTCS.esperarElementVisibility("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
+		        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+		        Date fechaActual = new Date();
+		        System.out.println("Fecha actual: " + fechaActual);
+		        String user = Credenciales.propertiesWebs().getProperty("userMail");
+		        String pass = Credenciales.propertiesWebs().getProperty("passMail");
+		        String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
+		        System.out.println("Código de activación: " + codigoActivacion);
+		        String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
+		        UtilidadesTCS.eliminarUltimoCorreoConOTP(user, pass);
+		        Utilidades.esperaMiliseg(5000);
+		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
+		        utilidadesTCS.writeElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD, nuevaClaveVirtual);
+				Utilidades.esperaMiliseg(800);
+		        Utilidades.tomaEvidencia("Ingreso OTP en cambio de dispositivo");
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN);
+		        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+		
+		        /*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/
+		        Utilidades.esperaMiliseg(1000);
+		        utilidadesTCS.clicElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN);
+		        utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, contrasenia);
+		        BaseUtil.baseContrasena = contrasenia;
+		        UtilidadesTCS.switchSelectAction(contrasenia);
+		        Utilidades.esperaMiliseg(1000);
+		        
+        	 } catch (Exception e) {
+     			//UtilidadesTCS.causaFalla("No se pudo interactuar con el elemento o tiempo de espera superado");
+     			fail("No se pudo interactuar con el elemento" + e);
+    		    assert utilidadesTCS.validateElementVisibility("xpath", LoginCivicaPage.CONFIRMATION_CONTINUE_BTN) : "No se pudo ingresar correctamente el código de autorización.";
+     		}
+        } else {
+        	
+        	try {
+	            /*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/
+	            System.out.println("El elemento no está presente o no es visible. Ejecutando el bloque else.");
+	            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
+	            utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, contrasenia);
+	            BaseUtil.baseContrasena = contrasenia;
+	            UtilidadesTCS.switchSelectAction(contrasenia);
+	            Utilidades.esperaMiliseg(1000);
+	            utilidadesTCS.clicElement("xpath", LoginCivicaPage.BACKGROUND_VIEW);
+	            
+	        } catch (Exception e) {
+				//UtilidadesTCS.causaFalla("Error al ingresar contraseña");
+				fail("Error al ingresar contraseña" + e);
+			}
+        }
+	}
+	
+	@Step
+    public void enterCredentialsHome(String tipoID, String usuario, String contrasenia) throws Exception {
+        UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_HOME);
+        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_INGRESO_REGISTRO_HOME);
+        
+		try {
+			Utilidades.esperaMiliseg(3000);
+		    utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 60);
+		    utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_TIPO_DOC);
+	        utilidadesTCS.scrollToElement(LoginCivicaPage.DESPLEGABLE_TIPO_DOC_CC, tipoID);
+	        utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_NUM_DOC, usuario);
+	        Utilidades.tomaEvidencia("Selecciono tipo de documento e ingreso número de documento");
+	        utilidadesTCS.clicElement("xpath", LoginCivicaPage.BTN_CONTINUAR_LOGIN);
 	        utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
 	        Utilidades.esperaMiliseg(6000);
 
@@ -198,6 +276,9 @@ public class LoginCivicaSteps {
 	
 	@Step
 	public void clickOnEnterOption() {
+		
+		Utilidades.esperaMiliseg(1000);
+		utilidadesTCS.clicElement("xpath",CambioClaveCivicaPage.ICON_EYE_CONFIRM_PASS);
 	    boolean isVisible;
 	    int clickCount = 0;
 
@@ -262,20 +343,16 @@ public class LoginCivicaSteps {
 	@Step
 	public void verifyToBeInsideTheApp() {
 		try {
+			Utilidades.esperaMiliseg(5000);
             utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 180);
-		    boolean isVisible;
-		    int clickCount = 0;
-		    
-	        boolean defect = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
-		    if(defect) {
-			    do {
-			        utilidadesTCS.clicElement("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
-			        isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
-			        clickCount++;
-			        
-			    } while (isVisible && clickCount < 5);
-		    }
-		    
+            boolean isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
+            while (isVisible) {
+                Utilidades.esperaMiliseg(1500);
+                utilidadesTCS.clicElement("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
+                isVisible = utilidadesTCS.validateElementVisibilityCatch("xpath", LoginCivicaPage.ACTUALIZAR_SALDO);
+		          Utilidades.esperaMiliseg(1500);
+            }
+
             WebDriverWait wait = new WebDriverWait(driver, 1);
             wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(PasarPlataCivicaPage.SALDOS_HOME)));
 			UtilidadesTCS.esperarElementVisibility("xpath", PasarPlataCivicaPage.SALDOS_HOME);
@@ -283,15 +360,19 @@ public class LoginCivicaSteps {
             Utilidades.tomaEvidencia("Ingresé a la APP");    
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.MENU_HAMBURGUESA);
             utilidadesTCS.clicElement("xpath", LoginCivicaPage.MENU_HAMBURGUESA);
+			Utilidades.esperaMiliseg(5000);
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.USUARIO);
-            utilidadesTCS.clicElement("xpath", LoginCivicaPage.USUARIO);
+			Utilidades.esperaMiliseg(3000);
+            utilidadesTCS.clicElementAction("xpath", LoginCivicaPage.USUARIO);
+			Utilidades.esperaMiliseg(500);
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.DATOS_USUARIO);
+			Utilidades.esperaMiliseg(1500);
             utilidadesTCS.clicElement("xpath", LoginCivicaPage.DATOS_USUARIO);
+            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.DATOS_PERSONALES);
 			Utilidades.esperaMiliseg(1000);
-            utilidadesTCS.esperaCargaElemento(LoginCivicaPage.PROGRESS_BAR, 120);
             UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.CEL_NUMBER_USER);
-			Utilidades.tomaEvidencia("Verifico que el usuario está activo en la APP.");	
+			Utilidades.tomaEvidencia("Verifico que el usuario está activo en la APP");	
 			BaseUtil.numeroCelular = utilidadesTCS.obtenerTexto("xpath", LoginCivicaPage.CEL_NUMBER_USER);
 			BaseUtil.tipoDocumento = utilidadesTCS.obtenerTexto("xpath", LoginCivicaPage.ID_NUMBER_USER);
             utilidadesTCS.clicElement("xpath", LoginCivicaPage.REGRESAR);
@@ -466,7 +547,7 @@ public class LoginCivicaSteps {
 		        String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
 		        System.out.println("Código de activación: " + codigoActivacion);
 		        String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
-		        UtilidadesTCS.eliminarMensajeUltimoCorreo(user, pass);
+		        UtilidadesTCS.eliminarUltimoCorreoConOTP(user, pass);
 		        Utilidades.esperaMiliseg(2000);
 				UtilidadesTCS.esperarElementVisibility("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);        
 		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
@@ -550,7 +631,7 @@ public class LoginCivicaSteps {
 		        String codigoActivacion = UtilidadesTCS.obtenerContenidoUltimoCorreo(user, pass);
 		        System.out.println("Código de activación: " + codigoActivacion);
 		        String nuevaClaveVirtual = UtilidadesTCS.extraerCodigoActivacion(codigoActivacion);
-		        UtilidadesTCS.eliminarMensajeUltimoCorreo(user, pass);
+		        UtilidadesTCS.eliminarUltimoCorreoConOTP(user, pass);
 		        Utilidades.esperaMiliseg(2000);
 				UtilidadesTCS.esperarElementVisibility("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);        
 		        utilidadesTCS.clicElement("xpath", RegistroCivicaPage.VERIFICATION_CODE_INPUT_FIELD);
@@ -573,7 +654,6 @@ public class LoginCivicaSteps {
 		} else {
 			 try {
 				/*REALIZAR ACCIONES SI EL ELEMENTO NO ES VISIBLE*/     
-				 
 				System.out.println("El elemento no está presente o no es visible. Ejecutando el bloque else.");            
 				UtilidadesTCS.esperarElementVisibility("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN);        
 				utilidadesTCS.writeElement("xpath", LoginCivicaPage.CAMPO_INGRESO_CLAVE_LOGIN, badPass);            

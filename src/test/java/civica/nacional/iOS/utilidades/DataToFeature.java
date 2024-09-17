@@ -13,28 +13,23 @@ import java.util.stream.Collectors;
 public class DataToFeature {
 
     public static void overrideFeatureFiles(String featuresDir, String excelPath) throws InvalidFormatException, IOException {
-        // Carga el archivo Excel
         FileInputStream file = new FileInputStream(excelPath);
         Workbook workbook = new XSSFWorkbook(file);
 
-        // Busca todos los archivos .feature en el directorio especificado
         List<Path> featureFiles = Files.walk(Paths.get(featuresDir))
                 .filter(Files::isRegularFile)
                 .filter(path -> path.toString().endsWith(".feature"))
                 .collect(Collectors.toList());
 
-        // Procesa cada archivo .feature
         for (Path featureFile : featureFiles) {
             List<String> lines = Files.readAllLines(featureFile);
-            String sheetName = getSheetNameFromFeatureFile(featureFile); // Método que determina la hoja según el archivo .feature
+            String sheetName = getSheetNameFromFeatureFile(featureFile);
 
             if (sheetName != null) {
                 Sheet sheet = workbook.getSheet(sheetName);
                 if (sheet != null) {
-                    // Mapa para almacenar los datos de cada caso de prueba
                     Map<String, String[]> dataMap = leerDatosDesdeHoja(sheet);
 
-                    // Actualiza las líneas del archivo .feature con los datos del Excel
                     List<String> updatedLines = lines.stream()
                             .map(line -> reemplazarDatos(line, dataMap))
                             .collect(Collectors.toList());
@@ -51,16 +46,18 @@ public class DataToFeature {
     private static String getSheetNameFromFeatureFile(Path featureFile) {
         String fileName = featureFile.getFileName().toString();
         
-        // Lógica para determinar el nombre de la hoja basado en el nombre del archivo .feature
         if (fileName.contains("Login")) {
             return "Login";
-        } else if (fileName.contains("OtroModulo")) {
-            return "OtroModulo";
+        } else if (fileName.contains("CambioDispositivo")) {
+            return "CambioDispositivo";
+        } else if (fileName.contains("CambioClave")) {
+            return "CambioClave";
+        } else if (fileName.contains("CambioClaveOlvido")) {
+            return "CambioClaveOlvido";
         } else if (fileName.contains("Registro")) {
             return "Registro";
         } else {
-            // Si no se encuentra un nombre específico, puedes retornar un valor predeterminado o lanzar una excepción
-            return "Default"; // O lanzar una excepción, si prefieres manejar el error
+            return "Default";
         }
     }
 
@@ -73,11 +70,14 @@ public class DataToFeature {
 
         while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
-            String[] data = new String[row.getPhysicalNumberOfCells() - 1];
+            int numCells = row.getPhysicalNumberOfCells();
+            String[] data = new String[numCells - 1]; // La última columna es el CP
+
             for (int i = 0; i < data.length; i++) {
                 data[i] = row.getCell(i).toString();
             }
-            String tag = row.getCell(row.getPhysicalNumberOfCells() - 1).toString();
+
+            String tag = row.getCell(numCells - 1).toString();
             dataMap.put(tag, data);
         }
         return dataMap;
@@ -87,10 +87,11 @@ public class DataToFeature {
         for (String tag : dataMap.keySet()) {
             if (line.contains(tag)) {
                 String[] values = dataMap.get(tag);
-                String[] placeholders = {"<0>", "<1>", "<2>", "<3>", "<4>"};
+                String[] placeholders = line.split("<|>"); // Extraer placeholders
 
-                for (int i = 0; i < placeholders.length; i++) {
-                    line = line.replace(placeholders[i], values[i]);
+                for (int i = 1; i < placeholders.length; i += 2) {
+                    int index = (i - 1) / 2;
+                    line = line.replace("<" + placeholders[i] + ">", values[index]);
                 }
             }
         }

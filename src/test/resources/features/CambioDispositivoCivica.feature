@@ -17,7 +17,7 @@ Feature: Cambio de dispositivo Cívica.
 
     Examples: 
       | tipoId | usuario  | contrasena | subtipo |
-      | "CC"   | "999837" | "1111"     | "MET"   |
+      | "CC"   | "999837" | "1112"     | "MET"   |
 
   @CP0009M
   Scenario Outline: Cambio_de_dispositivo_CP0009M_SYS_Validar el ingreso a la APP Cívica con un usuario MET - CE.
@@ -64,8 +64,8 @@ Feature: Cambio de dispositivo Cívica.
     And Cerrar sesion desde el home
 
     Examples: 
-      | tipoId | usuario  | contrasena | subtipo     |
-      | "CC"   | "999906" | "1234"     | "DAVIPLATA" |
+      | tipoId | usuario  | contrasena | subtipo |
+      | "CC"   | "999906" | "1234"     | "DAV"   |
 
   @CP0012M
   Scenario Outline: Cambio_de_dispositivo_CP0012M_SYS_Validar el ingreso a la APP Cívica con un usuario RAPPI.

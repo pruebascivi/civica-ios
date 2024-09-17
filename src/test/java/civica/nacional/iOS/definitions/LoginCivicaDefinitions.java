@@ -13,17 +13,17 @@ public class LoginCivicaDefinitions {
 	LoginCivicaSteps loginRobustoSteps;
 	
 	@Given("ingreso al aplicativo")
-	public void ingresoAlAplicativo() {
+	public void ingresoAlAplicativo() throws Exception {
 	    loginRobustoSteps.logInToTheApplication();
 	}
 	
 	@When("^ingreso de nuevo$")
-	public void ingresoDeNuevo() {
+	public void ingresoDeNuevo() throws Exception {
 		loginRobustoSteps.loginAgain();
 	}
 
 	@Given("^verifico la version del aplicativo$")
-	public void verificoLaVersionDelAplicativo() {
+	public void verificoLaVersionDelAplicativo() throws Exception {
 	    loginRobustoSteps.checkVersion();
 	}
 
@@ -33,33 +33,38 @@ public class LoginCivicaDefinitions {
 		loginRobustoSteps.enterCredentials(tipoID, usuario, contrasenia);
 	}
 	
+	@When("^ingreso credenciales desde el home \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
+	public void ingresoCredencialesDesdeElHome(String tipoID, String usuario, String contrasenia) throws Exception {
+		loginRobustoSteps.enterCredentialsHome(tipoID, usuario, contrasenia);
+	}
+	
 	@When("^ingreso nuevamente clave de manera errónea \"([^\"]*)\" \"([^\"]*)\" \"([^\"]*)\"$")
 	public void ingresoNuevamenteClaveDeManeraErronea(String tipoID, String usuario, String contrasenia) throws Exception {
 	    loginRobustoSteps.incorrectPasswordEntry(tipoID, usuario, contrasenia);
 	}
 	
 	@When("^selecciono la opcion ingresar$")
-	public void seleccionoLaOpcionIngresar() {
+	public void seleccionoLaOpcionIngresar() throws Exception {
 		loginRobustoSteps.clickOnEnterOption();
 	}
 	
 	@When("^selecciono ingresar opcion erronea$")
-	public void seleccionoIngresarOpcionErronea() {
+	public void seleccionoIngresarOpcionErronea() throws Exception {
 		loginRobustoSteps.clickOnEnterOptionBad();
 	}
 
 	@Then("^verifico que me encuentro en el inicio de la app$")
-	public void verificoQueMeEncuentroEnElInicioDeLaApp() {
+	public void verificoQueMeEncuentroEnElInicioDeLaApp() throws Exception {
 		loginRobustoSteps.verifyToBeInsideTheApp();
 	}
 	
 	@Then("^Logout app$")
-	public void logoutApp()	{
+	public void logoutApp() throws Exception	{
 		loginRobustoSteps.logoutApp();
 	}
 	
 	@When("^Valido que el usuario al ingresar por (\\d+) vez la clave incorrecta del ingreso en APP Cívica se debe inhabilitar el campo “Clave” y se debe mostrar al usuario el mensaje “Algo salió mal$")
-	public void validaoQueElUsuarioAlIngresarPorVezLaClaveIncorrectaDelIngresoEnAPPCívicaSeDebeInhabilitarElCampoClaveYSeDebeMostrarAlUsuarioElMensajeAlgoSalióMal(int arg1) {
+	public void validaoQueElUsuarioAlIngresarPorVezLaClaveIncorrectaDelIngresoEnAPPCívicaSeDebeInhabilitarElCampoClaveYSeDebeMostrarAlUsuarioElMensajeAlgoSalióMal(int arg1) throws Exception {
 		loginRobustoSteps.validatePopupErrorMaxLoginAttempt();
 	}
 	
@@ -82,7 +87,7 @@ public class LoginCivicaDefinitions {
 	}
 	
 	@When("^Cerrar sesion desde el home$")
-	public void cerrarSesionDesdeElHome() {
+	public void cerrarSesionDesdeElHome() throws Exception {
 		loginRobustoSteps.signOut();
 	}
 	

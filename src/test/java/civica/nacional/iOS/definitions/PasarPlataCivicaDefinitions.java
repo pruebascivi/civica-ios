@@ -49,6 +49,11 @@ public class PasarPlataCivicaDefinitions {
 		pasarPlataSteps.validarSaldosInicialesCivica();
 	}
 	
+	@When("^Valido el saldo inicial civica sin redeban$")
+	public void validoElSaldoInicialCivicaSinRedeban() {
+		pasarPlataSteps.validarSaldosInicialesCivicaSinRedeban();
+	}
+	
 	@When("^Validar saldo final civica$")
 	public void validarSaldoFinalCivica() {
 		pasarPlataSteps.capturarSaldosFinalesCivica();

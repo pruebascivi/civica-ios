@@ -708,7 +708,7 @@ public class UtilidadesTCS extends PageObject {
 		return "No encontré la OTP"; // SI NO SE ENCUENTRA EL PATRÓN, DEVOLVER NULL O MANEJAR DE OTRA MANERA SEGÚN SEA NECESARIO
 	}
 	
-	public static void eliminarMensajeUltimoCorreo(String usuario, String contrasena) throws Exception {
+	public static void eliminarUltimoCorreoConOTP(String usuario, String contrasena) throws Exception {
 	    Properties propiedades = new Properties();
 	    propiedades.setProperty("mail.store.protocol", "imaps");
 	    propiedades.setProperty("mail.imaps.ssl.protocols", "TLSv1.2");
@@ -720,22 +720,29 @@ public class UtilidadesTCS extends PageObject {
 	    tienda.connect("imap.gmail.com", usuario, contrasena);
 
 	    Folder bandeja = tienda.getFolder("inbox");
-	    bandeja.open(Folder.READ_WRITE);  // Asegúrate de que esté en modo READ_WRITE para poder eliminar mensajes
+	    bandeja.open(Folder.READ_WRITE);  // Asegúrate de tener acceso de lectura y escritura
 
 	    Message[] mensajes = bandeja.getMessages();
 	    if (mensajes.length > 0) {
-	        Message ultimoMensaje = mensajes[mensajes.length - 1];
+	        Message ultimoMensaje = mensajes[mensajes.length - 1];  // El último mensaje
 
-	        // Marcar el mensaje como eliminado
-	        ultimoMensaje.setFlag(Flags.Flag.DELETED, true);
+	        String contenido = obtenerContenidoMensaje(ultimoMensaje);
+	        // Verificar si es un correo con OTP
+	        if (extraerCodigoActivacion(contenido) != null) {
+	            // Marcar para eliminación
+	            ultimoMensaje.setFlag(Flags.Flag.DELETED, true);
+	            System.out.println("El mensaje con OTP ha sido marcado para eliminación.");
+	        } else {
+	            System.out.println("El último mensaje no contiene un OTP.");
+	        }
 
-	        // Cerrar la bandeja con la opción de expunged en true para eliminar los mensajes marcados
-	        bandeja.close(true);
+	        // Cerrar la bandeja con expunge para que se eliminen los mensajes marcados
+	        bandeja.close(true);  // true para expurgar (eliminar los correos marcados)
 	    } else {
-	        System.out.println("No se encontraron mensajes en la bandeja.");
-	        bandeja.close(false);  // Cerrar sin expurgar si no hay mensajes
+	        System.out.println("No se encontraron mensajes en la bandeja de entrada.");
+	        bandeja.close(false);  // Cierra la bandeja sin expurgar si no hay mensajes
 	    }
-	    
+
 	    tienda.close();
 	}
 
