@@ -12,7 +12,7 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 features = "src/test/resources/features" 
 ,glue = "civica.nacional.iOS.definitions"
-,tags = "@CP0056M"
+,tags = "@CP0001M"
 ,monochrome = true
 ,snippets = SnippetType.CAMELCASE)
 public class MainRunner {

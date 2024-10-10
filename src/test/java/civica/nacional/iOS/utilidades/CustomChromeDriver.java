@@ -2,7 +2,6 @@ package civica.nacional.iOS.utilidades;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -13,9 +12,9 @@ public class CustomChromeDriver {
 
 	    // Configuración de ChromeOptions
 	    ChromeOptions chromeOptions = new ChromeOptions();
-	    //chromeOptions.setAcceptInsecureCerts(true);
-	    //chromeOptions.addArguments("--disable-features=HttpsFirstMode");
-	    //chromeOptions.addArguments("--disable-features=HttpCache");
+	    chromeOptions.setAcceptInsecureCerts(true);
+	    chromeOptions.addArguments("--disable-features=HttpsFirstMode");
+	    chromeOptions.addArguments("--disable-features=HttpCache");
 
 	    // Crear una nueva instancia de ChromeDriver con las opciones configuradas
 	    BaseUtil.chromeDriver = new ChromeDriver(chromeOptions);
