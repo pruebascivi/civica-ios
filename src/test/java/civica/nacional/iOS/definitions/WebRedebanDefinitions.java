@@ -204,8 +204,8 @@ public class WebRedebanDefinitions {
 	
 	@Given("^Obtener numero celular actual en redeban \"([^\"]*)\"$")
 	public void obtenerNumeroCelularActualEnRedebanAumentoDeTopes(String usuario) throws Exception {
-		BaseUtil.numeroCelular = numCelular;
 		numCelular = stepsWebRedeban.consultaNumeroCelular(usuario);
+		BaseUtil.numeroCelular = numCelular;
 		assertNotNull(numCelular);
 	}
 	
